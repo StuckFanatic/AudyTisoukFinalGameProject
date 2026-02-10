@@ -32,6 +32,7 @@ public class IslandEscape {
 			
 			System.out.println("\nWhat do you do?");
 			String input = scanner.nextLine().toLowerCase();
+			CommandType command = CommandParser.parse(input);
 			
 			
 			if (input.equals("leave cell")) {
