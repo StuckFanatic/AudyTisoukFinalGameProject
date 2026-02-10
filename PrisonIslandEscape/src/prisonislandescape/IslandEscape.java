@@ -36,7 +36,7 @@ public class IslandEscape {
 			
 			switch (command) {
 			
-			
+			//Command move
 			case MOVE:
 		        player.move("Cell Block A");
 		        System.out.println(
@@ -45,25 +45,28 @@ public class IslandEscape {
 		        );
 		        break;
 			
+		        //Command Hide
 			case HIDE:
 				player.hide();
 				System.out.println("You find the nearest shadow and meld with it"
 				);
 				break;
 			
+				//Command to quit the game early
 			case QUIT:
 				System.out.println("You stop struggling for survival. It was futile anyway."
 				);
 				gameRunning = false;
 				break;
 
+				//Pressing enter without an input will "pass time" 
 			default:
 		        System.out.println("Time passes."
 		        );
 		        break;
             }
 
-			
+			//If the player gets to a certain detection it will end the game
             if (player.getDetectionLevel() >= 100) {
                 System.out.println("\nYou've made too much noise. The Island knows where you are."
                 		+ " There is no running now.");
