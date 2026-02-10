@@ -34,30 +34,39 @@ public class IslandEscape {
 			String input = scanner.nextLine().toLowerCase();
 			CommandType command = CommandParser.parse(input);
 			
+			switch (command) {
 			
-			if (input.equals("leave cell")) {
-				player.move("Cell Block A");
-				System.out.println("You leave the cell for the first time in a long time. The pain aches but"
-						+ "you've taken your first step into the unknown.");
-			}
 			
-			else if (input.equals("hide")) {
+			case MOVE:
+		        player.move("Cell Block A");
+		        System.out.println(
+		            "You leave the cell for the first time in a long time. "
+		          + "The pain aches but you've taken your first step into the unknown."
+		        );
+		        break;
+			
+			case HIDE:
 				player.hide();
-				System.out.println("You find the nearest shadow and meld with it");
-			}
+				System.out.println("You find the nearest shadow and meld with it"
+				);
+				break;
 			
-			else if (input.equals("quit")) {
-				System.out.println("You stop stuggling for survival. It was futile anyway.");
+			case QUIT:
+				System.out.println("You stop struggling for survival. It was futile anyway."
+				);
 				gameRunning = false;
-			}
-			
-			else {
-                System.out.println("Time passes.");
+				break;
+
+			default:
+		        System.out.println("Time passes."
+		        );
+		        break;
             }
 
+			
             if (player.getDetectionLevel() >= 100) {
                 System.out.println("\nYou've made too much noise. The Island knows where you are."
-                		+ "There is no running now.");
+                		+ " There is no running now.");
                 gameRunning = false;
             }
 			
