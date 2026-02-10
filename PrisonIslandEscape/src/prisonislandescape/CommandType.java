@@ -1,5 +1,5 @@
 package prisonislandescape;
 
-public class CommandType {
+public enum CommandType {
 
 }
