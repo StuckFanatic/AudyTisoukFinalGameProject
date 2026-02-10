@@ -54,8 +54,6 @@ public class Player {
 			detectionlevel = 0;
 		}
 		
-		health -= 2;		//Even standing still you lose health
-		
 	}
 	
 	

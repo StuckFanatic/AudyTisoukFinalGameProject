@@ -61,12 +61,6 @@ public class IslandEscape {
             }
 			
 			
-            if (!player.isAlive()) {
-            	
-            	System.out.println("\nYour body gives out. No more struggling.");
-            	
-            }
-			
 		}
 		
 		scanner.close();
