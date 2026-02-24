@@ -6,8 +6,43 @@ public class IslandEscape {
 
 	public static void main(String[] args) {
 		
+		//Creates locations thus far
+		Location cell = new Location(
+				"Your Cell",
+				"A damp stone cell. Rust stains the walls. The door slightly ajar."
+				);
+		
+		Location blockA = new Location(
+				"Cell Block A",
+				"Your nehborhood of empty cells. Rows of empty homes."
+				);
+		
+		Location yard = new Location(
+				"Prison Yard",
+				"An open yard surrounded by high crumbling walls. The sea crashing in the distance."
+				+ "The winds howling at you."
+				);
+		
+		Location shore = new Location(
+				"Shoreline",
+				"Jagged rocks that cut into the sea. Freedom lies somewhere beyond the infinite black waters."
+				);
+				
+		//Define exits(for now add this to define movement. Details later
+		cell.addExit("forward", blockA);
+		
+		blockA.addExit("back", cell);
+		blockA.addExit("forward", yard);
+		
+		yard.addExit("back", blockA);
+		yard.addExit("forward", shore);
+		
+		shore.addExit("back", yard);
+		
+		
+		//Moved this down below locations
 		Scanner scanner = new Scanner(System.in);
-		Player player = new Player();
+		Player player = new Player(cell);
 		
 		System.out.println("""
 			    You awaken. Not to a paradise, but again to a dark damp hell. You choke on your own blood and
@@ -36,14 +71,27 @@ public class IslandEscape {
 			
 			switch (command) {
 			
-			//Command move
-			case MOVE:
-		        player.move("Cell Block A");
-		        System.out.println(
-		            "You leave the cell for the first time in a long time. "
-		          + "The pain aches but you've taken your first step into the unknown."
-		        );
-		        break;
+			// Command move
+			case MOVE: {
+
+			    System.out.println("Where do you want to move? Available: "
+			            + player.getLocation().getAvailableExits());
+
+			    String direction = scanner.nextLine().toLowerCase();
+
+			    Location nextLocation = player.getLocation().getExit(direction);
+
+			    if (nextLocation != null) {
+
+			        player.move(nextLocation);
+			        System.out.println(nextLocation.getDescription());
+
+			    } else {
+			        System.out.println("You can't go that way.");
+			    }
+
+			    break;
+			}
 			
 		        //Command Hide
 			case HIDE:
@@ -52,6 +100,7 @@ public class IslandEscape {
 				);
 				break;
 			
+				
 				//Command to quit the game early
 			case QUIT:
 				System.out.println("You stop struggling for survival. It was futile anyway."

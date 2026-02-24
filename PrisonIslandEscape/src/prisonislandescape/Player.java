@@ -5,15 +5,15 @@ public class Player {
 	
 	private int health;			//Players health
 	private int detectionlevel;		//Will help with player judgment on certain interactions
-	private String location;		//Player location
+	private Location location;		//Player location
 	
 	
-	public Player() {
+	public Player(Location startingLocation) {
 		
 		
 		this.health = 100; 		//Starts at 100
 		this.detectionlevel = 0;		// 0 is hidden, 100 is captured
-		this.location = "Your Cell";		//Starting location?
+		this.location = startingLocation;		//Starting location?
 		
 	}
 	
@@ -29,13 +29,13 @@ public class Player {
 		
 	}
 
-	public String getLocation() {
+	public Location getLocation() {
 		
         return location;
         
     }
 	
-	public void move(String newLocation) {
+	public void move(Location newLocation) {
 		location = newLocation;
 		
 		health -= 4;		//Moving causes your health to deteriorate, sense of creeping death
