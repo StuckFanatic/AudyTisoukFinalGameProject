@@ -45,15 +45,15 @@ public class IslandEscape {
 		Player player = new Player(cell);
 		
 		System.out.println("""
-			    You awaken. Not to a paradise, but again to a dark damp hell. You choke on your own blood and
-			    the taste of salt plauges your mouth. You don't even remember why you are here anymore.
-			    Or how you are even still alive. All you know now is that due to years of imprisonment your body is failing slowly. 
+			    You awaken. Not to a paradise, but to a dark damp hell. You choke on your own blood and
+			    the taste of salt plauges your mouth. You don't even remember why you are here.
+			    Or who you even are. 
 			    """);
 		System.out.println("""
-				As unlucky as you are. Fate has tempted you with hope. The cell holding you 
-				is slightly ajar. Staying still might give you relief in your final hours. Moving might kill you.
+				Though fate has tempted you with a curious opportunity. The cell holding you 
+				is slightly ajar. The path to discovery might be beyond.
 			    """);
-		System.out.println("But what choice do you have?");
+		System.out.println("What do you do?");
 	
 		
 		boolean gameRunning = true;
