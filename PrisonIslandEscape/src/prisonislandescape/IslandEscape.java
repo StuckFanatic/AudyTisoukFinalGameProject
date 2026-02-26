@@ -47,7 +47,7 @@ public class IslandEscape {
 		//Moved this down below locations
 		Scanner scanner = new Scanner(System.in);
 		Player player = new Player(cell);
-		Presence presence = new Presence();
+		Presence presence = new Presence(shore);
 		
 		System.out.println("""
 			    You awaken. Not to a paradise, but to a dark damp hell. You choke on your own blood and
@@ -64,70 +64,74 @@ public class IslandEscape {
 		boolean gameRunning = true;
 		
 		while (gameRunning && player.isAlive()) {
-			
-			
-			System.out.println("\nHealth: " + player.getHealth());
-			System.out.println("Awareness: " + player.getDetectionLevel());
-			System.out.println("Location: " + player.getLocation());
-			
-			System.out.println("\nWhat do you do?");
-			String input = scanner.nextLine().toLowerCase();
-			CommandType command = CommandParser.parse(input);
-			
-			switch (command) {
-			
-			// Command move
-			case MOVE: {
 
-			    System.out.println("Where do you want to move? Available: "
-			            + player.getLocation().getAvailableExits());
+		    System.out.println("\nHealth: " + player.getHealth());
+		    System.out.println("Presence Awareness: " + presence.getAwarenessLevel());
+		    System.out.println("Location: " + player.getLocation());
 
-			    String direction = scanner.nextLine().toLowerCase();
+		    System.out.println("\nWhat do you do?");
+		    String input = scanner.nextLine().toLowerCase();
+		    CommandType command = CommandParser.parse(input);
 
-			    Location nextLocation = player.getLocation().getExit(direction);
+		    switch (command) {
 
-			    if (nextLocation != null) {
+		        case MOVE: {
 
-			        player.move(nextLocation);
-			        System.out.println(nextLocation.getDescription());
+		            System.out.println("Where do you want to move? Available: "
+		                    + player.getLocation().getAvailableExits());
 
-			    } else {
-			        System.out.println("You can't go that way.");
-			    }
+		            String direction = scanner.nextLine().toLowerCase();
 
-			    break;
-			}
-			
-		        //Command Hide
-			case HIDE:
-				player.hide();
-				System.out.println("You find the nearest shadow and meld with it"
-				);
-				break;
-			
-				
-				//Command to quit the game early
-			case QUIT:
-				System.out.println("You stop struggling for survival. It was futile anyway."
-				);
-				gameRunning = false;
-				break;
+		            Location nextLocation = player.getLocation().getExit(direction);
 
-				//Pressing enter without an input will "pass time" 
-			default:
-		        System.out.println("Time passes."
-		        );
-		        break;
-            }
+		            if (nextLocation != null) {
 
-			//If the player gets to a certain detection it will end the game
-            if (presence.hasFoundPlayer()) {
-                System.out.println("\nYou've made too much noise. The Presence knows where you are."
-                		+ " There is no running.");
-                gameRunning = false;
-            }
-			
-			
+		                player.move(nextLocation);
+		                System.out.println(nextLocation.getDescription());
+
+		                if (nextLocation.isSafeZone()) {
+		                    presence.decreaseAwareness(5);
+		                } else {
+		                    presence.increaseAwareness(5);
+		                }
+
+		            } else {
+		                System.out.println("You can't go that way.");
+		            }
+
+		            break;
+		        }
+
+		        case HIDE:
+		            player.hide();
+		            System.out.println("You find the nearest shadow and meld with it.");
+		            break;
+
+		        case QUIT:
+		            System.out.println("You stop struggling for survival. It was futile anyway.");
+		            gameRunning = false;
+		            break;
+
+		        default:
+		            System.out.println("Time passes.");
+		            break;
+		    }
+
+		    // Presence moves after player action
+		    presence.roam();
+
+		    // Debug print
+		    System.out.println("(DEBUG) Presence is in: " + presence.getCurrentLocation());
+
+		    // Atmospheric tension messages
+		    presence.checkTension();
+
+		    // End condition
+		    if (presence.hasFoundPlayer()) {
+		        System.out.println("\nYou've made too much noise. The Presence knows where you are."
+		                + " There is no running.");
+		        gameRunning = false;
+		    }
 		}
 		
 		scanner.close();

@@ -4,7 +4,6 @@ public class Player {
 	
 	
 	private int health;			//Players health
-	private int detectionlevel;		//Will help with player judgment on certain interactions
 	private Location location;		//Player location
 	
 	
@@ -12,7 +11,6 @@ public class Player {
 		
 		
 		this.health = 100; 		//Starts at 100
-		this.detectionlevel = 0;		// 0 is hidden, 100 is captured
 		this.location = startingLocation;		//Starting location?
 		
 	}
@@ -20,13 +18,6 @@ public class Player {
 	public int getHealth() {
 		
 		return health;
-	}
-	
-	public int getDetectionLevel()	{
-		
-		
-		return detectionlevel;
-		
 	}
 
 	public Location getLocation() {
@@ -40,28 +31,11 @@ public class Player {
 		
 		health -= 4;		//Moving causes your health to deteriorate, sense of creeping death
 		
-		if (location.isSafeZone()) { //Safe zones are going to be used to help relief pressure
-			detectionlevel -= 5;
-			if (detectionlevel < 0) {
-				detectionlevel = 0;
-			}
-				
-		}else {
-			detectionlevel += 3;//Moving causes your detection level to rise from noise
-		}
-				
-		
-		
 	}
 	
 	public void hide() {
 		
-		detectionlevel -= 10;		//Greatly reduce detection level. If any below 0 still will be 0
-		
-		if (detectionlevel < 0) {
-			
-			detectionlevel = 0;
-		}
+		System.out.println("You steady your breathing, hide and remain still");
 		
 	}
 	

@@ -14,6 +14,10 @@ public class Location {
 	//Holds possible ways to leave locations
 	private Map<String, Location> exits;
 	
+	public Map<String, Location> getExits() {
+	    return exits;
+	}
+	
 	//Allows the player using Map<String...> to go to each location making the game semi-open world
 	public Location(String name, String description, boolean safeZone) {
 		
