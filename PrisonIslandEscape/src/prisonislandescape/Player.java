@@ -40,7 +40,16 @@ public class Player {
 		
 		health -= 4;		//Moving causes your health to deteriorate, sense of creeping death
 		
-		detectionlevel += 3;		//Moving causes your detection level to rise from noise
+		if (location.isSafeZone()) { //Safe zones are going to be used to help relief pressure
+			detectionlevel -= 5;
+			if (detectionlevel < 0) {
+				detectionlevel = 0;
+			}
+				
+		}else {
+			detectionlevel += 3;//Moving causes your detection level to rise from noise
+		}
+				
 		
 		
 	}

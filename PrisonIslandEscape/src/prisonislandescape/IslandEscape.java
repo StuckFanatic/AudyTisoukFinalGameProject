@@ -9,23 +9,27 @@ public class IslandEscape {
 		//Creates locations thus far
 		Location cell = new Location(
 				"Your Cell",
-				"A damp stone cell. Rust stains the walls. The door slightly ajar."
+				"A damp stone cell. Rust stains the walls. The door slightly ajar.",
+				false
 				);
 		
 		Location blockA = new Location(
 				"Cell Block A",
-				"Your nehborhood of empty cells. Rows of empty homes."
+				"Your nehborhood of empty cells. Rows of empty homes.",
+				false
 				);
 		
 		Location yard = new Location(
 				"Prison Yard",
 				"An open yard surrounded by high crumbling walls. The sea crashing in the distance."
-				+ "The winds howling at you."
+				+ "The winds howling at you.",
+				false
 				);
 		
 		Location shore = new Location(
 				"Shoreline",
-				"Jagged rocks that cut into the sea. Freedom lies somewhere beyond the infinite black waters."
+				"Jagged rocks that cut into the sea. Freedom lies somewhere beyond the infinite black waters.",
+				true
 				);
 				
 		//Define exits(for now add this to define movement. Details later
@@ -43,6 +47,7 @@ public class IslandEscape {
 		//Moved this down below locations
 		Scanner scanner = new Scanner(System.in);
 		Player player = new Player(cell);
+		Presence presence = new Presence();
 		
 		System.out.println("""
 			    You awaken. Not to a paradise, but to a dark damp hell. You choke on your own blood and
@@ -116,9 +121,9 @@ public class IslandEscape {
             }
 
 			//If the player gets to a certain detection it will end the game
-            if (player.getDetectionLevel() >= 100) {
-                System.out.println("\nYou've made too much noise. The Island knows where you are."
-                		+ " There is no running now.");
+            if (presence.hasFoundPlayer()) {
+                System.out.println("\nYou've made too much noise. The Presence knows where you are."
+                		+ " There is no running.");
                 gameRunning = false;
             }
 			
