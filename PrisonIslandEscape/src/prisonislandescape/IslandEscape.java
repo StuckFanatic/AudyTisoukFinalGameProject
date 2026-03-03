@@ -119,6 +119,13 @@ public class IslandEscape {
 
 		    // Presence moves after player action
 		    presence.roam();
+		    
+		    //Collision check for Presence
+		    if (presence.getCurrentLocation() == player.getLocation()) {
+		    	System.out.println("\n The air turns ice cold");
+		    	System.out.println("The Presence is here and it sees you.");
+		    	presence.increaseAwareness(100); //forces chase state
+		    }
 
 		    // Debug print
 		    System.out.println("(DEBUG) Presence is in: " + presence.getCurrentLocation());
@@ -126,12 +133,6 @@ public class IslandEscape {
 		    // Atmospheric tension messages
 		    presence.checkTension();
 
-		    // End condition
-		    if (presence.hasFoundPlayer()) {
-		        System.out.println("\nYou've made too much noise. The Presence knows where you are."
-		                + " There is no running.");
-		        gameRunning = false;
-		    }
 		}
 		
 		scanner.close();
