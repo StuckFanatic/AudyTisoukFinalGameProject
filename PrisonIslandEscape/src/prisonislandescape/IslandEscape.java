@@ -118,15 +118,31 @@ public class IslandEscape {
 		    }
 
 		    // Presence moves after player action
-		    presence.roam();
+		    presence.roam(player.getLocation());
 		    
 		    //Collision check for Presence
-		    if (presence.getCurrentLocation() == player.getLocation()) {
-		    	System.out.println("\n The air turns ice cold");
-		    	System.out.println("The Presence is here and it sees you.");
-		    	presence.increaseAwareness(100); //forces chase state
-		    }
+		    if (!presence.isChasing() &&
+		    	    presence.getCurrentLocation() == player.getLocation()) {
 
+		    	    System.out.println("\nThe air turns ice cold");
+		    	    System.out.println("The Presence is here and it sees you.");
+
+		    	    presence.increaseAwareness(100);
+		    	}
+		    
+		    if (presence.isChasing()
+		    	    && presence.getCurrentLocation() == player.getLocation()
+		    	    && !presence.justStartedChase()) {
+
+		    	    System.out.println("\nIt lunges from the darkness.");
+		    	    System.out.println("You were too slow to escape.");
+
+		    	    break;
+		    	
+		    }
+		    //Presence will give a one turn window
+		    presence.resetChaseFlag();
+		    
 		    // Debug print
 		    System.out.println("(DEBUG) Presence is in: " + presence.getCurrentLocation());
 

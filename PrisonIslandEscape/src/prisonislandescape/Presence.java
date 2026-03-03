@@ -10,10 +10,14 @@ public class Presence {
 
 	private int awarenessLevel;
 	private Location currentLocation;
+	private boolean chasing;
+	private boolean justStartedChase;
 
     public Presence(Location startingLocation) {
         this.awarenessLevel = 0;
         this.currentLocation = startingLocation;
+        this.chasing = false;
+        this.justStartedChase = false;
     }
 
     public int getAwarenessLevel() {
@@ -22,6 +26,12 @@ public class Presence {
 
     public void increaseAwareness(int amount) {
         awarenessLevel += amount;
+        
+        if (awarenessLevel >= 100) {
+        	awarenessLevel = 100;
+        	chasing = true;
+        	justStartedChase = true;
+        }
     }
 
     public void decreaseAwareness(int amount) {
@@ -36,19 +46,34 @@ public class Presence {
         return awarenessLevel >= 100;
     }
     
+    public boolean isChasing() {
+    	return chasing;
+    }
+    
+    public boolean justStartedChase() {
+    	return justStartedChase;
+    }
+    
+    public void resetChaseFlag() {
+    	justStartedChase = false;
+    }
+    
     public void checkTension() {
     	
-    	if (awarenessLevel >= 75 && awarenessLevel < 100) {
-    		System.out.println("You feel something close. Breathing. Watching.");
-    		
-    	} 
-    	else if (awarenessLevel >= 50) {
-    		System.out.println("The air feels heavier. The Island is aware.");
-    		
-    	}
-    	else if (awarenessLevel >= 25) {
-    		System.out.println("A distant metallic echo rings somewhere unseen.");
-    	}
+    	if (chasing) {
+            System.out.println("It is hunting you.");
+            return;
+        }
+
+        if (awarenessLevel >= 75) {
+            System.out.println("You feel something close. Breathing. Watching.");
+        }
+        else if (awarenessLevel >= 50) {
+            System.out.println("The air feels heavier. The Island is aware.");
+        }
+        else if (awarenessLevel >= 25) {
+            System.out.println("A distant metallic echo rings somewhere unseen.");
+        }
     	
     }
     
@@ -61,24 +86,50 @@ public class Presence {
         currentLocation = newLocation;
     }
     
-    public void roam() {
+    public void roam(Location playerLocation) {
 
-        if (currentLocation == null) return;
+    	    if (currentLocation == null) return;
 
-        List<Location> possibleMoves = new ArrayList<>(currentLocation.getExits().values());
+    	    // ----- CHASE MODE -----
+    	    if (chasing) {
 
-        if (possibleMoves.isEmpty()) {
-            System.out.println("(DEBUG) Presence has no exits from " + currentLocation);
-            return;
-        }
+    	        for (Location loc : currentLocation.getExits().values()) {
+    	            if (loc == playerLocation) {
+    	                System.out.println("(DEBUG) Presence lunges toward you!");
+    	                currentLocation = loc;
+    	                return;
+    	            }
+    	        }
 
-        Random random = new Random();
-        Location next = possibleMoves.get(random.nextInt(possibleMoves.size()));
+    	        return;
+    	    }
 
-        System.out.println("(DEBUG) Presence moving from " + currentLocation + " to " + next);
+    	    // ----- HUNTING MODE (50–99) -----
+    	    if (awarenessLevel >= 50) {
 
-        currentLocation = next;
+    	        for (Location loc : currentLocation.getExits().values()) {
+    	            if (loc == playerLocation) {
+    	                System.out.println("(DEBUG) Presence moves with purpose...");
+    	                currentLocation = loc;
+    	                return;
+    	            }
+    	        }
+    	    }
+
+    	    // ----- WANDERING MODE -----
+    	    List<Location> possibleMoves =
+    	            new ArrayList<>(currentLocation.getExits().values());
+
+    	    if (possibleMoves.isEmpty()) return;
+
+    	    Random random = new Random();
+    	    Location next = possibleMoves.get(random.nextInt(possibleMoves.size()));
+
+    	    System.out.println("(DEBUG) Presence moving from "
+    	            + currentLocation + " to " + next);
+
+    	    currentLocation = next;
     }
 	
-	
+    
 }
