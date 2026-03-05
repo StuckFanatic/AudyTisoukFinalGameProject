@@ -12,7 +12,8 @@ public class Location {
 	private String description;
 	private boolean safeZone;
 	private List<Item> items;
-	
+	private boolean explored;
+	private String flavorText;
 	
 	//Holds possible ways to leave locations
 	private Map<String, Location> exits;
@@ -27,8 +28,11 @@ public class Location {
 		this.name = name;
 		this.description = description;
 		this.safeZone = safeZone;
+		this.flavorText = flavorText;
+		
 		this.exits = new HashMap<>();
 		this.items = new ArrayList<>();
+		this.explored = false;
 		
 	}
 	
@@ -83,6 +87,32 @@ public class Location {
 			}
 		}
 		return null;
+	}
+	
+	public void explore() {
+		
+		if(explored) {
+			System.out.println("You search again but find nothing new.");
+			return;
+		}
+		
+		System.out.println(flavorText);
+		
+		
+		explored = true;
+		
+		System.out.println("\nYou carefully search the area...");
+		
+		if(!items.isEmpty()) {
+			System.out.println("You find:");
+			
+			for(Item item : items) {
+				System.out.println("- " + item.getName());	
+			}
+		}
+		else {
+			System.out.println("You find nothing useful.");
+		}
 	}
 	
 	@Override
