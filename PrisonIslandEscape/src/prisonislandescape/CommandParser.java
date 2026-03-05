@@ -12,6 +12,14 @@ public class CommandParser {
 			return CommandType.HIDE;
 		}
 		
+		if (input.startsWith("take") || input.startsWith("grab")) {
+			return CommandType.TAKE;
+		}
+		
+		if (input.startsWith("inventory") || input.startsWith("bag")) {
+			return CommandType.INVENTORY;
+		}
+		
 		if (input.startsWith("quit") || input.startsWith("give up")) {
 			return CommandType.QUIT;
 		}

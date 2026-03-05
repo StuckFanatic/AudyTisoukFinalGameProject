@@ -16,6 +16,7 @@ public class Player {
 		
 		this.health = 100; 		//Starts at 100
 		this.location = startingLocation;		//Starting location?
+		this.inventory = new ArrayList<>();
 		
 	}
 	
@@ -48,5 +49,34 @@ public class Player {
 		
 		return health > 0;
 	}	
+	
+	public void addItem(Item item) {
+		inventory.add(item);
+	}
+	
+	public boolean hasItem(String itemName) {
+		for (Item item : inventory) {
+			if (item.getName().equalsIgnoreCase(itemName)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public void showInventory() {
+		if (inventory.isEmpty()) {
+			System.out.println("Yoou are carrying nothing...");
+			return;
+		}
+		
+		System.out.println("You carry: ");
+		
+		for (Item item : inventory) {
+			System.out.println("- " + item.getName());
+		}
+	}
+	
+	
+	
 	
 }
