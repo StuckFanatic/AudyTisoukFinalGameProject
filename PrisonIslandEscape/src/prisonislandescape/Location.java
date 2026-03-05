@@ -11,6 +11,7 @@ public class Location {
 	private String name;
 	private String description;
 	private boolean safeZone;
+	private List<Item> items;
 	
 	
 	//Holds possible ways to leave locations
@@ -27,6 +28,7 @@ public class Location {
 		this.description = description;
 		this.safeZone = safeZone;
 		this.exits = new HashMap<>();
+		this.items = new ArrayList<>();
 		
 	}
 	
@@ -63,6 +65,24 @@ public class Location {
 		
 		return exits.keySet().toString();
 		
+	}
+	
+	public void addItem(Item item) {
+		item.add(item);
+	}
+	
+	public List<Item> getItems() {
+		return items;
+	}
+	
+	public Item removeItem(String itemName) {
+		for (Item item : items) {
+			if (item.getName().equalsIgnoreCase(itemName)) {
+				item.remove(item);
+				return item;
+			}
+		}
+		return null;
 	}
 	
 	@Override

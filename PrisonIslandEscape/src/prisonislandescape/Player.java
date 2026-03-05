@@ -1,10 +1,14 @@
 package prisonislandescape;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Player {
 	
 	
 	private int health;			//Players health
 	private Location location;		//Player location
+	private List<Item> inventory;
 	
 	
 	public Player(Location startingLocation) {
