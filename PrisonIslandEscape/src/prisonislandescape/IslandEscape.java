@@ -113,7 +113,7 @@ public class IslandEscape {
 				""
 				);
 		
-		Location frontdoor = new Location(
+		Location frontDoor = new Location(
 				"Entrance Gate",
 				"",
 				false,
@@ -155,14 +155,21 @@ public class IslandEscape {
 				""
 				);
 		
-		Location stairwell = new Location(
-				"Stairwell",
+		Location labStairwell = new Location(
+				"Stairwell close to the lab",
 				"",
 				false,
 				""
 				);
 		
-		Location docks = new Location(
+		Location officeStairwell = new Location(
+				"Stairwell close to the office",
+				"",
+				false,
+				""
+				);
+		
+		Location dockyard = new Location(
 				"Receiving Port",
 				"",
 				false,
@@ -175,6 +182,19 @@ public class IslandEscape {
 		Item knife = new Item(
 				"Knife",
 				"A small combat knife. It may save you."
+				);
+		
+		Item herb = new Item(
+				"Green Herb",
+				"A medicinal plant that will restore some health."
+				);
+		Item flashlight = new Item(
+				"Flashlight",
+				"A small flashlight. It may help you navigate dark areas."
+				);
+		Item key = new Item(
+				"Rusty Key",
+				"An old key that may unlock something."
 				);
 				
 				
@@ -189,36 +209,68 @@ public class IslandEscape {
 		recreational.addExit("right", visiting);
 		recreational.addExit("left", hallway);
 		
+		cafeteria.addExit("back", recreational);
+		
 		visiting.addExit("back", recreational);
-		visiting.addExit("left", frontdoor);
+		visiting.addExit("left", frontDoor);
 		visiting.addExit("right", safeRoom);
+		
+		safeRoom.addExit("back", visiting);
+		
+		frontDoor.addExit("back", visiting);
+		frontDoor.addExit("left", shore);
 		
 		hallway.addExit("back", recreational);
 		hallway.addExit("left", barracks);
 		hallway.addExit("right", medical);
 		hallway.addExit("forward", yard);
 		
+		barracks.addExit("back", recreational);
+		barracks.addExit("forward", office);
+		barracks.addExit("left", armory);
+		
+		armory.addExit("back", barracks);
+		
+		office.addExit("back", barracks);
+		office.addExit("forward", officeStairwell);
+		
+		officeStairwell.addExit("back", office);
+		officeStairwell.addExit("forward", labStairwell);
+		
+		medical.addExit("back", hallway);
+		medical.addExit("forward", securityDoor);
+		
+		securityDoor.addExit("back", medical);
+		securityDoor.addExit("forward", labortory);
+		
+		labortory.addExit("back", securityDoor);
+		labortory.addExit("forward", contamination);
+		labortory.addExit("left", labStairwell);
+		
+		labStairwell.addExit("back", labortory);
+		labStairwell.addExit("forward", officeStairwell);
+		
+		contamination.addExit("back", labortory);
+		contamination.addExit("forward", experiment);
+		
+		experiment.addExit("back", contamination);
+		experiment.addExit("forward", panicRoom);
+		
 		yard.addExit("back", hallway);
 		yard.addExit("left", tower);
 		yard.addExit("forward", shore);
 		
-		yard.addExit("back", blockA);
-		yard.addExit("forward", shore);
+		tower.addExit("back", yard);
+		tower.addExit("forward", wall);
+		
+		wall.addExit("back", tower);
+		wall.addExit("forward", shore);
 		
 		shore.addExit("back", yard);
+		shore.addExit("forward", dockyard);
+		shore.addExit("right", frontDoor);
 		
-		medical.addExit("left", blockA);
-		medical.addExit("forward", office);
-		
-		armory.addExit("back", cafeteria);
-		
-		office.addExit("right", medical);
-		office.addExit("left", barracks);
-		
-		barracks.addExit("right", office);
-		
-		
-		
+		dockyard.addExit("back", shore);
 		
 		
 		//Moved this down below locations
