@@ -68,7 +68,7 @@ public class Location {
 	}
 	
 	public void addItem(Item item) {
-		item.add(item);
+		items.add(item);
 	}
 	
 	public List<Item> getItems() {
@@ -78,7 +78,7 @@ public class Location {
 	public Item removeItem(String itemName) {
 		for (Item item : items) {
 			if (item.getName().equalsIgnoreCase(itemName)) {
-				item.remove(item);
+				items.remove(item);
 				return item;
 			}
 		}

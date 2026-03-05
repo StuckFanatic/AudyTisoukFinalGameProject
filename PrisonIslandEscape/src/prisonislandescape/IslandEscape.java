@@ -106,6 +106,28 @@ public class IslandEscape {
 		            player.hide();
 		            System.out.println("You find the nearest shadow and meld with it.");
 		            break;
+		            
+		            
+		        case TAKE: {
+		        	
+		        	System.out.println("What do you want to take?");
+		        	String itemName = scanner.nextLine();
+		        	
+		        	Item item = player.getLocation().removeItem(itemName);
+		        	
+		        	if (item != null) {
+		        		player.addItem(item);
+		        		System.out.println("You picked up: " + item.getName());
+		        	} else {
+		        		System.out.println("There is no such item here.");
+		        	}
+		        	
+		        	break;
+		        }
+		        
+		        case INVENTORY: 
+		        	player.showInventory();
+		        	break;
 
 		        case QUIT:
 		            System.out.println("You stop struggling for survival. It was futile anyway.");
