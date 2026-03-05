@@ -9,6 +9,7 @@ public class Player {
 	private int health;			//Players health
 	private Location location;		//Player location
 	private List<Item> inventory;
+	private int maxInventory = 4;
 	
 	
 	public Player(Location startingLocation) {
@@ -51,6 +52,10 @@ public class Player {
 	}	
 	
 	public void addItem(Item item) {
+		if (inventory.size() >= maxInventory) {
+			System.out.println("Your pockets are full. You must drop something.");
+		}
+		
 		inventory.add(item);
 	}
 	
@@ -76,7 +81,33 @@ public class Player {
 		}
 	}
 	
+	public Item getItem(String itemName) {
+		
+		for(Item item : inventory) {
+			if (item.getName().equalsIgnoreCase(itemName)) {
+				return item;
+			}
+		}
+		return null;
+	}
 	
+	public void removeItem(String itemName) {
+		
+		for (Item item : inventory) {
+			if (item.getName().equalsIgnoreCase(itemName)) {
+				inventory.remove(item);
+				return;
+			}
+		}
+	}
+	
+	public void heal(int amount) {
+		health += amount;
+		if (health > 100) {
+			health = 100;
+		}
+		System.out.println("You feel like you've staved away death a little longer...");
+	}
 	
 	
 }

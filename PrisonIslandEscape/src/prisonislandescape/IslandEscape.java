@@ -10,38 +10,215 @@ public class IslandEscape {
 		Location cell = new Location(
 				"Your Cell",
 				"A damp stone cell. Rust stains the walls. The door slightly ajar.",
-				false
+				false,
+				"You take a look around you. Stains of old blood and scratches surround you. Cell number 42."
 				);
 		
 		Location blockA = new Location(
-				"Cell Block A",
-				"Your nehborhood of empty cells. Rows of empty homes.",
-				false
+				"Block A",
+				"Block A housed Your nehborhood of empty cells. Rows of empty homes.",
+				false,
+				"Each cell remains locked. Yours is the only one that can be opened."
 				);
 		
 		Location yard = new Location(
 				"Prison Yard",
 				"An open yard surrounded by high crumbling walls. The sea crashing in the distance."
 				+ "The winds howling at you.",
-				false
+				false,
+				"The large open yard for everyday prisoner execersise. The guard towers are no longer keeping watch as they sit crumbled."
 				);
 		
 		Location shore = new Location(
 				"Shoreline",
 				"Jagged rocks that cut into the sea. Freedom lies somewhere beyond the infinite black waters.",
-				true
+				false,
+				"The stench of the sea fill your nose. The dark waters inviting you into deaths embrace."
 				);
+		
+		Location medical = new Location(
+				"Medical Wing",
+				"A cold clinical hall. Rusted hospital beds and broken glass line the room.",
+				false,
+				""
+				);
+		
+		Location armory = new Location(
+				"Armory",
+				"",
+				true,
+				""
+				);
+		
+		Location office = new Location(
+				"Warden's Office",
+				"",
+				false,
+				""
+				);
+		
+		Location barracks = new Location(
+				"Guard Station",
+				"",
+				false,
+				""
+				);
+		
+		Location tower = new Location(
+				"Guard Tower",
+				"",
+				false,
+				""
+				);
+		
+		Location wall = new Location(
+				"Prison Yard Wall",
+				"",
+				false,
+				""
+				);
+		
+		Location safeRoom = new Location(
+				"Maintenance Room",
+				"",
+				true,
+				""
+				);
+		
+		Location cafeteria = new Location(
+				"Cafeteria",
+				"",
+				false,
+				""
+				);
+		
+		Location recreational = new Location(
+				"Recreational Room",
+				"",
+				false,
+				""
+				);
+		
+		Location hallway = new Location(
+				"Long Hall",
+				"",
+				false,
+				""
+				);
+		
+		Location visiting  = new Location(
+				"Visiting Rooms",
+				"",
+				false,
+				""
+				);
+		
+		Location frontdoor = new Location(
+				"Entrance Gate",
+				"",
+				false,
+				""
+				);
+		
+		Location securityDoor = new Location(
+				"Secure Door",
+				"",
+				false,
+				""
+				);
+		
+		Location labortory = new Location(
+				"Research Lab",
+				"",
+				false,
+				""
+				);
+		
+		Location experiment = new Location(
+				"Experiment Testing Room",
+				"",
+				false,
+				""
+				);
+		
+		Location contamination = new Location(
+				"Contamination Room",
+				"",
+				false,
+				""
+				);
+		
+		Location panicRoom = new Location(
+				"Panic Room",
+				"",
+				true,
+				""
+				);
+		
+		Location stairwell = new Location(
+				"Stairwell",
+				"",
+				false,
+				""
+				);
+		
+		Location docks = new Location(
+				"Receiving Port",
+				"",
+				false,
+				""
+				);
+		
+		
+		
+		//Items for use
+		Item knife = new Item(
+				"Knife",
+				"A small combat knife. It may save you."
+				);
+				
 				
 		//Define exits(for now add this to define movement. Details later
 		cell.addExit("forward", blockA);
 		
 		blockA.addExit("back", cell);
-		blockA.addExit("forward", yard);
+		blockA.addExit("forward", recreational);
+		
+		recreational.addExit("back", blockA);
+		recreational.addExit("forward", cafeteria);
+		recreational.addExit("right", visiting);
+		recreational.addExit("left", hallway);
+		
+		visiting.addExit("back", recreational);
+		visiting.addExit("left", frontdoor);
+		visiting.addExit("right", safeRoom);
+		
+		hallway.addExit("back", recreational);
+		hallway.addExit("left", barracks);
+		hallway.addExit("right", medical);
+		hallway.addExit("forward", yard);
+		
+		yard.addExit("back", hallway);
+		yard.addExit("left", tower);
+		yard.addExit("forward", shore);
 		
 		yard.addExit("back", blockA);
 		yard.addExit("forward", shore);
 		
 		shore.addExit("back", yard);
+		
+		medical.addExit("left", blockA);
+		medical.addExit("forward", office);
+		
+		armory.addExit("back", cafeteria);
+		
+		office.addExit("right", medical);
+		office.addExit("left", barracks);
+		
+		barracks.addExit("right", office);
+		
+		
+		
 		
 		
 		//Moved this down below locations
@@ -107,6 +284,10 @@ public class IslandEscape {
 		            System.out.println("You find the nearest shadow and meld with it.");
 		            break;
 		            
+		        case EXPLORE: 
+		        	player.getLocation().explore();
+		        	break;
+		            
 		            
 		        case TAKE: {
 		        	
@@ -128,6 +309,31 @@ public class IslandEscape {
 		        case INVENTORY: 
 		        	player.showInventory();
 		        	break;
+		        	
+		        case USE: {
+		        	
+		        	System.out.println("What do you want to use?");
+		        	String itemName = scanner.nextLine();
+		        	
+		        	Item item = player.getItem(itemName);
+		        	
+		        	if (item == null) {
+		        		System.out.println("You don't have that item.");
+		        		break;
+		        	}
+		        	
+		        	if (item.getName().equalsIgnoreCase("Green Herb")) {
+		        		
+		        		player.heal(50);
+		        		player.removeItem("Green Herb");
+		        		
+		        	} else {
+		        		
+		        		System.out.println("You use the " + item.getName());
+		        	}
+		        	
+		        	break;
+		        }
 
 		        case QUIT:
 		            System.out.println("You stop struggling for survival. It was futile anyway.");
@@ -155,13 +361,27 @@ public class IslandEscape {
 		    if (presence.isChasing()
 		    	    && presence.getCurrentLocation() == player.getLocation()
 		    	    && !presence.justStartedChase()) {
+		    	
+		    	if (player.hasItem("Knife")) {
+		    		
+		    		System.out.println("\nThe Presence lunges!");
+		    		
+		    		System.out.println("You instinctively stab wildly with your knife!");
+		    		
+		    		System.out.println("It recoils long enough for you to escape!");
+		    		
+		    		player.removeItem("Knife");
+		    		
+		    		presence.decreaseAwareness(60);
+		    	} else {
 
 		    	    System.out.println("\nIt lunges from the darkness.");
 		    	    System.out.println("You were too slow to escape.");
 
 		    	    break;
-		    	
+		    	}
 		    }
+		    	
 		    //Presence will give a one turn window
 		    presence.resetChaseFlag();
 		    

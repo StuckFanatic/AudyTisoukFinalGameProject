@@ -23,7 +23,7 @@ public class Location {
 	}
 	
 	//Allows the player using Map<String...> to go to each location making the game semi-open world
-	public Location(String name, String description, boolean safeZone) {
+	public Location(String name, String description, boolean safeZone, String flavorText) {
 		
 		this.name = name;
 		this.description = description;
