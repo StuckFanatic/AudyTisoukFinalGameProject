@@ -40,141 +40,141 @@ public class IslandEscape {
 				"Medical Wing",
 				"A cold clinical hall. Rusted hospital beds and broken glass line the room.",
 				false,
-				""
+				"You search the ruined infirmary. Surgical tools are scattered across the floor. Dark stains coat the eaxmination tables"
 				);
 		
 		Location armory = new Location(
 				"Armory",
-				"",
+				"A reinforced weapons locker. Most racks are empty.",
 				true,
-				""
+				"You search the armory. Empty weapons racks line the walls. It seems like it was all left behind or used long ago."
 				);
 		
 		Location office = new Location(
 				"Warden's Office",
-				"",
+				"A large office overlooking the prison yard. Papers cover the desk.",
 				false,
-				""
+				"You sift through the papers and ledgers. Reports of prisoner behavior and experimental results appear throughout the files."
 				);
 		
 		Location barracks = new Location(
 				"Guard Station",
-				"",
+				"Old guard bunks line the walls. Adandonded uniforms lie scattered.",
 				false,
-				""
+				"You search the sleeping quarters of the guards. The bed were left in a hurry. Some lockers remain partially open."
 				);
 		
 		Location tower = new Location(
 				"Guard Tower",
-				"",
+				"A tall rusted tower overlooking the prison yard.",
 				false,
-				""
+				"Yu climb the tower and search the lookout station. The prison grounds streched beneath you."
 				);
 		
 		Location wall = new Location(
 				"Prison Yard Wall",
-				"",
+				"A broken defensive wall overlooking the raging sea.",
 				false,
-				""
+				"Walking along the wall you see the ocean scrashing violently below."
 				);
 		
 		Location safeRoom = new Location(
 				"Maintenance Room",
-				"",
+				"A cramped repair room filled with broken tools and machinery.",
 				true,
-				""
+				"You dig through toolboxes and broken machines. Spare parts and old equipment fill the shelves. Every phone line also cut."
 				);
 		
 		Location cafeteria = new Location(
 				"Cafeteria",
-				"",
+				"A run down sad eatery",
 				false,
-				""
+				"Metal benches line the place with chairs and trays scattered around the floor. The windows shuttered with no kitchen in sight."
 				);
 		
 		Location recreational = new Location(
 				"Recreational Room",
-				"",
+				"The empty silence of what was a gathering place for inmates.",
 				false,
-				""
+				"The gameboards, billiard tables and books of what could have been a respite now lay bare as nothing is playable now."
 				);
 		
 		Location hallway = new Location(
 				"Long Hall",
-				"",
+				"A long narrow hallway leading many places",
 				false,
-				""
+				"Many of the standard occupational roles for the prison with many unimportant doors closed shut."
 				);
 		
 		Location visiting  = new Location(
 				"Visiting Rooms",
-				"",
+				"A broken glass sets the place for inmates to speak to the outside.",
 				false,
-				""
+				"Shattered glass lines the room. It's been awhile since anyone else has been here. "
 				);
 		
 		Location frontDoor = new Location(
-				"Entrance Gate",
-				"",
-				false,
-				""
-				);
+			    "Entrance Gate",
+			    "The main prison gate stands sealed shut.",
+			    false,
+			    "You inspect the heavy steel gate. A security lock blocks the control panel."
+			);
 		
 		Location securityDoor = new Location(
-				"Secure Door",
-				"",
-				false,
-				""
-				);
+			    "Security Door",
+			    "A reinforced electronic security door blocks the hallway.",
+			    false,
+			    "You inspect the security panel. It requires a special access card."
+			);
 		
 		Location labortory = new Location(
-				"Research Lab",
-				"",
-				false,
-				""
-				);
+			    "Research Lab",
+			    "A laboratory filled with shattered glass tubes and broken equipment.",
+			    false,
+			    "You search the lab benches. Strange research documents mention 'Subject 428'."
+			);
 		
 		Location experiment = new Location(
-				"Experiment Testing Room",
-				"",
-				false,
-				""
-				);
+			    "Experiment Testing Room",
+			    "Large containment chambers line the walls.",
+			    false,
+			    "You search the experiment chamber. Several broken containment pods lie open."
+			);
 		
 		Location contamination = new Location(
-				"Contamination Room",
-				"",
-				false,
-				""
-				);
+			    "Contamination Room",
+			    "A sterilization chamber connecting the labs.",
+			    false,
+			    "You search the decontamination room. Protective suits hang lifelessly from hooks."
+			);
 		
 		Location panicRoom = new Location(
-				"Panic Room",
-				"",
-				true,
-				""
-				);
+			    "Panic Room",
+			    "A sealed emergency bunker hidden deep in the lab.",
+			    true,
+			    "You search the emergency bunker. Emergency supplies were meant to keep someone alive for weeks nearly gone."
+			);
 		
 		Location labStairwell = new Location(
-				"Stairwell close to the lab",
-				"",
-				false,
-				""
-				);
+			    "Lab Stairwell",
+			    "A metal staircase connecting the upper prison and underground labs.",
+			    false,
+			    "You search the stairwell landing. Dust covers every step."
+			);
 		
 		Location officeStairwell = new Location(
-				"Stairwell close to the office",
-				"",
-				false,
-				""
-				);
+			    "Office Stairwell",
+			    "A narrow staircase leading between the prison floors.",
+			    false,
+			    "You search the stairwell. The walls are scratched deeply."
+			);
 		
 		Location dockyard = new Location(
-				"Receiving Port",
-				"",
-				false,
-				""
-				);
+			    "Receiving Port",
+			    "An old supply dock where ships once delivered cargo.",
+			    false,
+			    "You search the empty docks. Broken crates and rusted chains lie scattered."
+			);
 		
 		
 		
