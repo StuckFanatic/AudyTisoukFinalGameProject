@@ -14,6 +14,8 @@ public class Location {
 	private List<Item> items;
 	private boolean explored;
 	private String flavorText;
+	private boolean locked;
+	private String requiredKey;
 	
 	//Holds possible ways to leave locations
 	private Map<String, Location> exits;
@@ -69,6 +71,23 @@ public class Location {
 		
 		return exits.keySet().toString();
 		
+	}
+	
+	public void setLocked(String keyName) {
+		locked = true;
+		requiredKey = keyName;
+	}
+	
+	public boolean tryUnlock(Player player) {
+		if (!locked) return true;
+		
+		if (player.hasItem(requiredKey)) {
+			System.out.println("You unlock the door using the " + requiredKey + ".");
+			locked = false;
+			return true;
+		}
+		System.out.println("The door is locked. It requires: " + requiredKey);
+		return false;
 	}
 	
 	public void addItem(Item item) {

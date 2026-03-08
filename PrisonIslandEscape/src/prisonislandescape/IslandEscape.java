@@ -188,14 +188,32 @@ public class IslandEscape {
 				"Green Herb",
 				"A medicinal plant that will restore some health."
 				);
+		
 		Item flashlight = new Item(
 				"Flashlight",
 				"A small flashlight. It may help you navigate dark areas."
 				);
-		Item key = new Item(
+		
+		Item rustyKey = new Item(
 				"Rusty Key",
 				"An old key that may unlock something."
 				);
+		
+		//Keys
+		Item goldKey = new Item(
+				"Gold Key",
+				"A polished key used by the warden."
+				);
+		Item redCard = new Item(
+				"Red Keycard",
+				"A high level security keycard"
+				);
+		
+		Item smoothKey = new Item(
+				"Smooth Key",
+				"A smooth metal civilian door key"
+				);
+		
 				
 				
 		//Define exits(for now add this to define movement. Details later
@@ -203,6 +221,8 @@ public class IslandEscape {
 		
 		blockA.addExit("back", cell);
 		blockA.addExit("forward", recreational);
+		blockA.setLocked("Rusty Key");
+		blockA.addItem(rustyKey);
 		
 		recreational.addExit("back", blockA);
 		recreational.addExit("forward", cafeteria);
@@ -216,9 +236,11 @@ public class IslandEscape {
 		visiting.addExit("right", safeRoom);
 		
 		safeRoom.addExit("back", visiting);
+		safeRoom.addItem(smoothKey);
 		
 		frontDoor.addExit("back", visiting);
 		frontDoor.addExit("left", shore);
+		frontDoor.setLocked("Smooth Key");
 		
 		hallway.addExit("back", recreational);
 		hallway.addExit("left", barracks);
@@ -233,6 +255,8 @@ public class IslandEscape {
 		
 		office.addExit("back", barracks);
 		office.addExit("forward", officeStairwell);
+		office.setLocked("Gold Key");
+		office.addItem(redCard);
 		
 		officeStairwell.addExit("back", office);
 		officeStairwell.addExit("forward", labStairwell);
@@ -242,6 +266,7 @@ public class IslandEscape {
 		
 		securityDoor.addExit("back", medical);
 		securityDoor.addExit("forward", labortory);
+		securityDoor.setLocked("Red Keycard");
 		
 		labortory.addExit("back", securityDoor);
 		labortory.addExit("forward", contamination);
@@ -262,6 +287,7 @@ public class IslandEscape {
 		
 		tower.addExit("back", yard);
 		tower.addExit("forward", wall);
+		tower.addItem(goldKey);
 		
 		wall.addExit("back", tower);
 		wall.addExit("forward", shore);
