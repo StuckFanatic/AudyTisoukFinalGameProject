@@ -331,9 +331,17 @@ public class IslandEscape {
 		    switch (command) {
 
 		        case MOVE: {
+		        	
+		        	if (presence.isChasing()) {
+		        		
+		        		System.out.println("\nRUN!");
+		        		System.out.println("Your mind is racing. Your eyes tunnel.You can't rememember the halls.");
+		        		System.out.println("Where do you go?");
+		        	} else {
 
 		            System.out.println("Where do you want to move? Available: "
 		                    + player.getLocation().getAvailableExits());
+		        	}
 
 		            String direction = scanner.nextLine().toLowerCase();
 
