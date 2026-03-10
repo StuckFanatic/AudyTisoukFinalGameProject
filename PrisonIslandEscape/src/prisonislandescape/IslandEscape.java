@@ -229,6 +229,8 @@ public class IslandEscape {
         barracks.addExit("back", hallway);
         barracks.addExit("forward", office);
         barracks.addExit("left", armory);
+        
+        armory.addExit("back", barracks);
 
         office.addExit("back", barracks);
         office.addExit("forward", officeStairwell);
