@@ -4,111 +4,79 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Player {
-	
-	
-	private int health;			//Players health
-	private Location location;		//Player location
-	private List<Item> inventory;
-	private int maxInventory = 4;
-	
-	
-	public Player(Location startingLocation) {
-		
-		
-		this.health = 100; 		//Starts at 100
-		this.location = startingLocation;		//Starting location?
-		this.inventory = new ArrayList<>();
-		
-	}
-	
-	public int getHealth() {
-		
-		return health;
-	}
 
-	public Location getLocation() {
-		
-        return location;
-        
+    private int health;
+    private final int maxHealth = 100;
+    private Location location;
+    private List<Item> inventory;
+    private final int maxInventory = 4;
+
+    public Player(Location startingLocation) {
+        this.health = maxHealth;
+        this.location = startingLocation;
+        this.inventory = new ArrayList<>();
     }
-	
-	public void move(Location newLocation) {
-		location = newLocation;
-		
-		health -= 4;		//Moving causes your health to deteriorate, sense of creeping death
-		
-	}
-	
-	public void hide() {
-		
-		System.out.println("You steady your breathing, hide and remain still");
-		
-		
-	}
-	
-	
-	public boolean isAlive() {
-		
-		return health > 0;
-	}	
-	
-	public void addItem(Item item) {
-		if (inventory.size() >= maxInventory) {
-			System.out.println("Your pockets are full. You must drop something.");
-		}
-		
-		inventory.add(item);
-	}
-	
-	public boolean hasItem(String itemName) {
-		for (Item item : inventory) {
-			if (item.getName().equalsIgnoreCase(itemName)) {
-				return true;
-			}
-		}
-		return false;
-	}
-	
-	public void showInventory() {
-		if (inventory.isEmpty()) {
-			System.out.println("Yoou are carrying nothing...");
-			return;
-		}
-		
-		System.out.println("You carry: ");
-		
-		for (Item item : inventory) {
-			System.out.println("- " + item.getName());
-		}
-	}
-	
-	public Item getItem(String itemName) {
-		
-		for(Item item : inventory) {
-			if (item.getName().equalsIgnoreCase(itemName)) {
-				return item;
-			}
-		}
-		return null;
-	}
-	
-	public void removeItem(String itemName) {
-		
-		for (Item item : inventory) {
-			if (item.getName().equalsIgnoreCase(itemName)) {
-				inventory.remove(item);
-				return;
-			}
-		}
-	}
-	
-	public void heal(int amount) {
-		health += amount;
-		if (health > 100) {
-			health = 100;
-		}
-		System.out.println("You feel like you've staved away death a little longer...");
-	}
-	
-	
+
+    // --- Movement ---
+    public void move(Location newLocation) {
+        location = newLocation;
+        // Moving costs some health to simulate exhaustion
+        health -= 3;
+        System.out.println("You move to " + newLocation.getName() + ". You feel the strain...");
+    }
+
+    public Location getLocation() {
+        return location;
+    }
+
+    // --- Health ---
+    public void heal(int amount) {
+        health += amount;
+        if (health > maxHealth) health = maxHealth;
+        System.out.println("You feel a little more alive.");
+    }
+
+    public boolean isAlive() {
+        return health > 0;
+    }
+
+    public int getHealth() {
+        return health;
+    }
+
+    // --- Inventory Management ---
+    public void addItem(Item item) {
+        if (inventory.size() >= maxInventory) {
+            System.out.println("Your pockets are full. Drop something first!");
+            return;
+        }
+        inventory.add(item);
+        System.out.println("Picked up: " + item.getName());
+    }
+
+    public void removeItem(String itemName) {
+        inventory.removeIf(i -> i.getName().equalsIgnoreCase(itemName));
+    }
+
+    public boolean hasItem(String itemName) {
+        return inventory.stream().anyMatch(i -> i.getName().equalsIgnoreCase(itemName));
+    }
+
+    public Item getItem(String itemName) {
+        return inventory.stream().filter(i -> i.getName().equalsIgnoreCase(itemName)).findFirst().orElse(null);
+    }
+
+    public void showInventory() {
+        if (inventory.isEmpty()) {
+            System.out.println("You are carrying nothing.");
+            return;
+        }
+        System.out.println("Inventory:");
+        inventory.forEach(i -> System.out.println("- " + i.getName()));
+    }
+
+    // --- Hiding ---
+    public void hide() {
+        System.out.println("You melt into the shadows, holding your breath...");
+    }
 }

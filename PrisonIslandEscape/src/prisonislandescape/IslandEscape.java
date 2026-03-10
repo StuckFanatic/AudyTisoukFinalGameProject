@@ -4,494 +4,355 @@ import java.util.Scanner;
 
 public class IslandEscape {
 
-	public static void main(String[] args) {
-		
-		//Creates locations thus far
-		Location cell = new Location(
-				"Your Cell",
-				"A damp stone cell. Rust stains the walls. The door slightly ajar.",
-				false,
-				"You take a look around you. Stains of old blood and scratches surround you. Cell number 42."
-				);
-		
-		Location blockA = new Location(
-				"Block A",
-				"Block A housed Your nehborhood of empty cells. Rows of empty homes.",
-				false,
-				"Each cell remains locked. Yours is the only one that can be opened."
-				);
-		
-		Location yard = new Location(
-				"Prison Yard",
-				"An open yard surrounded by high crumbling walls. The sea crashing in the distance."
-				+ "The winds howling at you.",
-				false,
-				"The large open yard for everyday prisoner execersise. The guard towers are no longer keeping watch as they sit crumbled."
-				);
-		
-		Location shore = new Location(
-				"Shoreline",
-				"Jagged rocks that cut into the sea. Freedom lies somewhere beyond the infinite black waters.",
-				false,
-				"The stench of the sea fill your nose. The dark waters inviting you into deaths embrace."
-				);
-		
-		Location medical = new Location(
-				"Medical Wing",
-				"A cold clinical hall. Rusted hospital beds and broken glass line the room.",
-				false,
-				"You search the ruined infirmary. Surgical tools are scattered across the floor. Dark stains coat the eaxmination tables"
-				);
-		
-		Location armory = new Location(
-				"Armory",
-				"A reinforced weapons locker. Most racks are empty.",
-				true,
-				"You search the armory. Empty weapons racks line the walls. It seems like it was all left behind or used long ago."
-				);
-		
-		Location office = new Location(
-				"Warden's Office",
-				"A large office overlooking the prison yard. Papers cover the desk.",
-				false,
-				"You sift through the papers and ledgers. Reports of prisoner behavior and experimental results appear throughout the files."
-				);
-		
-		Location barracks = new Location(
-				"Guard Station",
-				"Old guard bunks line the walls. Adandonded uniforms lie scattered.",
-				false,
-				"You search the sleeping quarters of the guards. The bed were left in a hurry. Some lockers remain partially open."
-				);
-		
-		Location tower = new Location(
-				"Guard Tower",
-				"A tall rusted tower overlooking the prison yard.",
-				false,
-				"Yu climb the tower and search the lookout station. The prison grounds streched beneath you."
-				);
-		
-		Location wall = new Location(
-				"Prison Yard Wall",
-				"A broken defensive wall overlooking the raging sea.",
-				false,
-				"Walking along the wall you see the ocean scrashing violently below."
-				);
-		
-		Location safeRoom = new Location(
-				"Maintenance Room",
-				"A cramped repair room filled with broken tools and machinery.",
-				true,
-				"You dig through toolboxes and broken machines. Spare parts and old equipment fill the shelves. Every phone line also cut."
-				);
-		
-		Location cafeteria = new Location(
-				"Cafeteria",
-				"A run down sad eatery",
-				false,
-				"Metal benches line the place with chairs and trays scattered around the floor. The windows shuttered with no kitchen in sight."
-				);
-		
-		Location recreational = new Location(
-				"Recreational Room",
-				"The empty silence of what was a gathering place for inmates.",
-				false,
-				"The gameboards, billiard tables and books of what could have been a respite now lay bare as nothing is playable now."
-				);
-		
-		Location hallway = new Location(
-				"Long Hall",
-				"A long narrow hallway leading many places",
-				false,
-				"Many of the standard occupational roles for the prison with many unimportant doors closed shut."
-				);
-		
-		Location visiting  = new Location(
-				"Visiting Rooms",
-				"A broken glass sets the place for inmates to speak to the outside.",
-				false,
-				"Shattered glass lines the room. It's been awhile since anyone else has been here. "
-				);
-		
-		Location frontDoor = new Location(
-			    "Entrance Gate",
-			    "The main prison gate stands sealed shut.",
-			    false,
-			    "You inspect the heavy steel gate. A security lock blocks the control panel."
-			);
-		
-		Location securityDoor = new Location(
-			    "Security Door",
-			    "A reinforced electronic security door blocks the hallway.",
-			    false,
-			    "You inspect the security panel. It requires a special access card."
-			);
-		
-		Location labortory = new Location(
-			    "Research Lab",
-			    "A laboratory filled with shattered glass tubes and broken equipment.",
-			    false,
-			    "You search the lab benches. Strange research documents mention 'Subject 428'."
-			);
-		
-		Location experiment = new Location(
-			    "Experiment Testing Room",
-			    "Large containment chambers line the walls.",
-			    false,
-			    "You search the experiment chamber. Several broken containment pods lie open."
-			);
-		
-		Location contamination = new Location(
-			    "Contamination Room",
-			    "A sterilization chamber connecting the labs.",
-			    false,
-			    "You search the decontamination room. Protective suits hang lifelessly from hooks."
-			);
-		
-		Location panicRoom = new Location(
-			    "Panic Room",
-			    "A sealed emergency bunker hidden deep in the lab.",
-			    true,
-			    "You search the emergency bunker. Emergency supplies were meant to keep someone alive for weeks nearly gone."
-			);
-		
-		Location labStairwell = new Location(
-			    "Lab Stairwell",
-			    "A metal staircase connecting the upper prison and underground labs.",
-			    false,
-			    "You search the stairwell landing. Dust covers every step."
-			);
-		
-		Location officeStairwell = new Location(
-			    "Office Stairwell",
-			    "A narrow staircase leading between the prison floors.",
-			    false,
-			    "You search the stairwell. The walls are scratched deeply."
-			);
-		
-		Location dockyard = new Location(
-			    "Receiving Port",
-			    "An old supply dock where ships once delivered cargo.",
-			    false,
-			    "You search the empty docks. Broken crates and rusted chains lie scattered."
-			);
-		
-		
-		
-		//Items for use
-		Item knife = new Item(
-				"Knife",
-				"A small combat knife. It may save you."
-				);
-		
-		Item herb = new Item(
-				"Green Herb",
-				"A medicinal plant that will restore some health."
-				);
-		
-		Item flashlight = new Item(
-				"Flashlight",
-				"A small flashlight. It may help you navigate dark areas."
-				);
-		
-		Item rustyKey = new Item(
-				"Rusty Key",
-				"An old key that may unlock something."
-				);
-		
-		//Keys
-		Item goldKey = new Item(
-				"Gold Key",
-				"A polished key used by the warden."
-				);
-		Item redCard = new Item(
-				"Red Keycard",
-				"A high level security keycard"
-				);
-		
-		Item smoothKey = new Item(
-				"Smooth Key",
-				"A smooth metal civilian door key"
-				);
-		
-				
-				
-		//Define exits(for now add this to define movement. Details later
-		cell.addExit("forward", blockA);
-		
-		blockA.addExit("back", cell);
-		blockA.addExit("forward", recreational);
-		blockA.addItem(rustyKey);
-		
-		recreational.addExit("back", blockA);
-		recreational.addExit("forward", cafeteria);
-		recreational.addExit("right", visiting);
-		recreational.addExit("left", hallway);
-		recreational.setLocked("Rusty Key");
-		
-		cafeteria.addExit("back", recreational);
-		
-		visiting.addExit("back", recreational);
-		visiting.addExit("left", frontDoor);
-		visiting.addExit("right", safeRoom);
-		
-		safeRoom.addExit("back", visiting);
-		safeRoom.addItem(smoothKey);
-		
-		frontDoor.addExit("back", visiting);
-		frontDoor.addExit("left", shore);
-		frontDoor.setLocked("Smooth Key");
-		
-		hallway.addExit("back", recreational);
-		hallway.addExit("left", barracks);
-		hallway.addExit("right", medical);
-		hallway.addExit("forward", yard);
-		
-		barracks.addExit("back", recreational);
-		barracks.addExit("forward", office);
-		barracks.addExit("left", armory);
-		
-		armory.addExit("back", barracks);
-		
-		office.addExit("back", barracks);
-		office.addExit("forward", officeStairwell);
-		office.setLocked("Gold Key");
-		office.addItem(redCard);
-		
-		officeStairwell.addExit("back", office);
-		officeStairwell.addExit("forward", labStairwell);
-		
-		medical.addExit("back", hallway);
-		medical.addExit("forward", securityDoor);
-		
-		securityDoor.addExit("back", medical);
-		securityDoor.addExit("forward", labortory);
-		securityDoor.setLocked("Red Keycard");
-		
-		labortory.addExit("back", securityDoor);
-		labortory.addExit("forward", contamination);
-		labortory.addExit("left", labStairwell);
-		
-		labStairwell.addExit("back", labortory);
-		labStairwell.addExit("forward", officeStairwell);
-		
-		contamination.addExit("back", labortory);
-		contamination.addExit("forward", experiment);
-		
-		experiment.addExit("back", contamination);
-		experiment.addExit("forward", panicRoom);
-		
-		yard.addExit("back", hallway);
-		yard.addExit("left", tower);
-		yard.addExit("forward", shore);
-		
-		tower.addExit("back", yard);
-		tower.addExit("forward", wall);
-		tower.addItem(goldKey);
-		
-		wall.addExit("back", tower);
-		wall.addExit("forward", shore);
-		
-		shore.addExit("back", yard);
-		shore.addExit("forward", dockyard);
-		shore.addExit("right", frontDoor);
-		
-		dockyard.addExit("back", shore);
-		
-		
-		//Moved this down below locations
-		Scanner scanner = new Scanner(System.in);
-		Player player = new Player(cell);
-		Presence presence = new Presence(shore);
-		
-		System.out.println("""
-			    You awaken. Not to a paradise, but to a dark damp hell. You choke on your own blood and
-			    the taste of salt plauges your mouth. You don't even remember why you are here.
-			    Or who you even are. 
-			    """);
-		System.out.println("""
-				Though fate has tempted you with a curious opportunity. The cell holding you 
-				is slightly ajar. The path to discovery might be beyond.
-			    """);
-		System.out.println("What do you do?");
-	
-		
-		boolean gameRunning = true;
-		
-		while (gameRunning && player.isAlive()) {
+    public static void main(String[] args) {
 
-		    System.out.println("\nHealth: " + player.getHealth());
-		    System.out.println("Presence Awareness: " + presence.getAwarenessLevel());
-		    System.out.println("Location: " + player.getLocation());
+        // --- LOCATIONS ---
+        Location cell = new Location(
+            "Cell 42",
+            "A damp stone cell. Rust stains the walls. The door is slightly ajar.",
+            false,
+            "You wake disoriented, your mind blank. Scratches on the wall hint at others who were here."
+        );
 
-		    System.out.println("\nWhat do you do?");
-		    String input = scanner.nextLine().toLowerCase();
-		    CommandType command = CommandParser.parse(input);
+        Location blockA = new Location(
+            "Block A",
+            "Empty cells stretch in rows. Silence is heavy.",
+            false,
+            "You notice most cells are locked, some damaged, but one seems recently opened."
+        );
 
-		    switch (command) {
+        Location yard = new Location(
+            "Prison Yard",
+            "An open yard with crumbling walls. The sea crashes in the distance.",
+            false,
+            "The air is salty. Rusted guard towers loom, empty and silent."
+        );
 
-		    case MOVE: {
+        Location shore = new Location(
+            "Shoreline",
+            "Jagged rocks cut into the dark waters. Freedom might be beyond them.",
+            false,
+            "The ocean looks menacing. Waves crash violently, daring you to escape."
+        );
 
-		        if (presence.isChasing()) {
+        Location medical = new Location(
+            "Medical Wing",
+            "A clinical hall gone to ruin. Rusted beds and broken glass everywhere.",
+            false,
+            "You see shattered syringes, dried blood, and broken cabinets. Something went horribly wrong here."
+        );
 
-		            System.out.println("\nRUN!");
-		            System.out.println("Your mind is racing. Your eyes tunnel. You can't remember the halls.");
-		            System.out.println("Where do you go?");
+        Location armory = new Location(
+            "Armory",
+            "Weapons racks, mostly empty, some smashed to pieces.",
+            true,
+            "You search the armory. Only remnants of weapons remain."
+        );
 
-		        } else {
+        Location office = new Location(
+            "Warden's Office",
+            "A large office overlooking the prison yard. Papers scattered everywhere.",
+            false,
+            "Among the papers, you find ledgers detailing prisoners and experiments. One mentions 'Subject 428' and initials A.W."
+        );
 
-		            System.out.println("Where do you want to move? Available: "
-		                    + player.getLocation().getAvailableExits());
-		        }
+        Location barracks = new Location(
+            "Guard Station",
+            "Abandoned guard quarters. Uniforms and bunks lie in disarray.",
+            false,
+            "You see personal belongings, scattered logs, and a faint memory of authority."
+        );
 
-		        String direction = scanner.nextLine().toLowerCase();
+        Location tower = new Location(
+            "Guard Tower",
+            "A rusted tower looking over the yard.",
+            false,
+            "From above, the prison stretches beneath you. Something about the height unsettles you."
+        );
 
-		        Location nextLocation = player.getLocation().getExit(direction);
+        Location wall = new Location(
+            "Yard Wall",
+            "A broken defensive wall with a view of the sea.",
+            false,
+            "The sea crashes below, reminding you of the danger beyond."
+        );
 
-		        if (nextLocation == null) {
+        Location safeRoom = new Location(
+            "Maintenance Room",
+            "Tools, broken machinery, and spare parts clutter the room.",
+            true,
+            "A safe place to regroup. Perhaps you can restore health here."
+        );
 
-		            System.out.println("You can't go that way.");
-		            break;
-		        }
+        Location cafeteria = new Location(
+            "Cafeteria",
+            "A ruined eatery. Metal tables and trays scattered.",
+            false,
+            "Empty, but something smells faintly metallic in the air."
+        );
 
-		        // ----- LOCK CHECK -----
+        Location recreational = new Location(
+            "Recreational Room",
+            "An empty room for prisoners’ recreation.",
+            false,
+            "Billiard tables and game boards are broken. Dust covers everything."
+        );
 
-		        if (!nextLocation.tryUnlock(player)) {
-		            break;
-		        }
+        Location hallway = new Location(
+            "Long Hall",
+            "A long hallway connecting many rooms.",
+            false,
+            "The hallway stretches into darkness. The silence is oppressive."
+        );
 
-		        // ----- MOVE PLAYER -----
+        Location visiting = new Location(
+            "Visiting Rooms",
+            "Rooms with shattered glass and broken furniture.",
+            false,
+            "You see signs of past conversations. Maybe clues remain."
+        );
 
-		        player.move(nextLocation);
-		        System.out.println(nextLocation.getDescription());
+        Location frontDoor = new Location(
+            "Entrance Gate",
+            "The main gate is sealed shut with a security lock.",
+            false,
+            "Freedom seems near but locked behind steel and codes."
+        );
 
-		        if (nextLocation.isSafeZone()) {
-		            presence.decreaseAwareness(5);
-		        } else {
-		            presence.increaseAwareness(5);
-		        }
+        Location securityDoor = new Location(
+            "Security Door",
+            "A reinforced electronic door blocks your path.",
+            false,
+            "It requires a high-level keycard."
+        );
 
-		        break;
-		    }
+        Location laboratory = new Location(
+            "Research Lab",
+            "Shattered glass tubes and broken equipment litter the lab.",
+            false,
+            "Documents mention 'Subject 428' and experiments. This seems connected to you..."
+        );
 
-		        case HIDE:
-		            player.hide();
-		            System.out.println("You find the nearest shadow and meld with it.");
-		            break;
-		            
-		        case EXPLORE: 
-		        	player.getLocation().explore();
-		        	break;
-		            
-		            
-		        case TAKE: {
-		        	
-		        	System.out.println("What do you want to take?");
-		        	String itemName = scanner.nextLine();
-		        	
-		        	Item item = player.getLocation().removeItem(itemName);
-		        	
-		        	if (item != null) {
-		        		player.addItem(item);
-		        		System.out.println("You picked up: " + item.getName());
-		        	} else {
-		        		System.out.println("There is no such item here.");
-		        	}
-		        	
-		        	break;
-		        }
-		        
-		        case INVENTORY: 
-		        	player.showInventory();
-		        	break;
-		        	
-		        case USE: {
-		        	
-		        	System.out.println("What do you want to use?");
-		        	String itemName = scanner.nextLine();
-		        	
-		        	Item item = player.getItem(itemName);
-		        	
-		        	if (item == null) {
-		        		System.out.println("You don't have that item.");
-		        		break;
-		        	}
-		        	
-		        	if (item.getName().equalsIgnoreCase("Green Herb")) {
-		        		
-		        		player.heal(50);
-		        		player.removeItem("Green Herb");
-		        		
-		        	} else {
-		        		
-		        		System.out.println("You use the " + item.getName());
-		        	}
-		        	
-		        	break;
-		        }
+        Location experiment = new Location(
+            "Experiment Testing Room",
+            "Containment chambers, some broken open.",
+            false,
+            "Empty pods and stains hint at failed experiments. Some notes are torn."
+        );
 
-		        case QUIT:
-		            System.out.println("You stop struggling for survival. It was futile anyway.");
-		            gameRunning = false;
-		            break;
+        Location contamination = new Location(
+            "Contamination Room",
+            "A decontamination chamber with empty protective suits.",
+            false,
+            "You feel the air here is toxic. Something was contained."
+        );
 
-		        default:
-		            System.out.println("Time passes.");
-		            break;
-		    }
+        Location panicRoom = new Location(
+            "Panic Room",
+            "Emergency supplies, mostly looted.",
+            true,
+            "A safe space, but supplies are nearly gone."
+        );
 
-		    // Presence moves after player action
-		    presence.roam(player.getLocation());
-		    
-		    presence.panicAtmosphere();
-		    
-		    
-		    //Collision check for Presence
-		    if (!presence.isChasing() &&
-		    	    presence.getCurrentLocation() == player.getLocation()) {
+        Location labStairwell = new Location(
+            "Lab Stairwell",
+            "Metal stairs connecting upper prison and underground labs.",
+            false,
+            "Steps creak under your weight. The labs below look darker."
+        );
 
-		    	    System.out.println("\nThe air turns ice cold");
-		    	    System.out.println("The Presence is here and it sees you.");
+        Location officeStairwell = new Location(
+            "Office Stairwell",
+            "A narrow staircase between prison floors.",
+            false,
+            "Scratched walls hint at desperate escape attempts."
+        );
 
-		    	    presence.increaseAwareness(100);
-		    	}
-		    
-		    if (presence.isChasing()
-		    	    && presence.getCurrentLocation() == player.getLocation()
-		    	    && !presence.justStartedChase()) {
-		    	
-		    	if (player.hasItem("Knife")) {
-		    		
-		    		System.out.println("\nThe Presence lunges!");
-		    		
-		    		System.out.println("You instinctively stab wildly with your knife!");
-		    		
-		    		System.out.println("It recoils long enough for you to escape!");
-		    		
-		    		player.removeItem("Knife");
-		    		
-		    		presence.decreaseAwareness(60);
-		    	} else {
+        Location dockyard = new Location(
+            "Receiving Port",
+            "Old dock where cargo once arrived.",
+            false,
+            "Broken crates and chains hint at long-abandoned shipments."
+        );
 
-		    	    System.out.println("\nIt lunges from the darkness.");
-		    	    System.out.println("You were too slow to escape.");
+        // --- ITEMS ---
+        Item knife = new Item("Knife", "A small combat knife. Can help fend off danger.");
+        Item herb = new Item("Green Herb", "A medicinal plant that restores health.");
+        Item flashlight = new Item("Flashlight", "Helps navigate dark areas.");
+        Item rustyKey = new Item("Rusty Key", "An old key, might unlock a door.");
+        Item goldKey = new Item("Gold Key", "Used by the Warden for special access.");
+        Item redCard = new Item("Red Keycard", "High-level security keycard.");
+        Item smoothKey = new Item("Smooth Key", "A civilian-style door key.");
+        Item ledgerAW = new Item("Ledger A.W.", "A detailed ledger about Subject 428 with initials A.W. You feel it relates to you.");
+        Item noteAW = new Item("Note A.W.", "A note explaining Subject 428 was undercover. You start to believe you are important.");
+        Item finalLedger = new Item("Final Ledger", "The truth about Subject 428. You were never undercover. Only a survivor.");
 
-		    	    break;
-		    	}
-		    }
-		    	
-		    //Presence will give a one turn window
-		    presence.resetChaseFlag();
-		    
-		    // Debug print
-		    System.out.println("(DEBUG) Presence is in: " + presence.getCurrentLocation());
+        // --- PLACE ITEMS ---
+        blockA.addItem(rustyKey);
+        safeRoom.addItem(smoothKey);
+        office.addItem(redCard);
+        tower.addItem(goldKey);
+        laboratory.addItem(ledgerAW);
+        laboratory.addItem(noteAW);
+        panicRoom.addItem(finalLedger);
+        armory.addItem(knife);
+        medical.addItem(herb);
 
-		    // Atmospheric tension messages
-		    presence.checkTension();
+        // --- EXITS ---
+        cell.addExit("forward", blockA);
 
-		}
-		
-		scanner.close();
-	}
-	
+        blockA.addExit("back", cell);
+        blockA.addExit("forward", recreational);
+
+        recreational.addExit("back", blockA);
+        recreational.addExit("forward", cafeteria);
+        recreational.addExit("left", hallway);
+        recreational.addExit("right", visiting);
+
+        cafeteria.addExit("back", recreational);
+        visiting.addExit("back", recreational);
+        visiting.addExit("left", frontDoor);
+        visiting.addExit("right", safeRoom);
+        safeRoom.addExit("back", visiting);
+        frontDoor.addExit("back", visiting);
+        frontDoor.addExit("left", shore);
+
+        hallway.addExit("back", recreational);
+        hallway.addExit("left", barracks);
+        hallway.addExit("right", medical);
+        hallway.addExit("forward", yard);
+
+        barracks.addExit("back", hallway);
+        barracks.addExit("forward", office);
+        barracks.addExit("left", armory);
+
+        office.addExit("back", barracks);
+        office.addExit("forward", officeStairwell);
+        officeStairwell.addExit("back", office);
+        officeStairwell.addExit("forward", labStairwell);
+
+        labStairwell.addExit("back", officeStairwell);
+        labStairwell.addExit("forward", laboratory);
+
+        laboratory.addExit("back", labStairwell);
+        laboratory.addExit("forward", contamination);
+        contamination.addExit("back", laboratory);
+        contamination.addExit("forward", experiment);
+        experiment.addExit("back", contamination);
+        experiment.addExit("forward", panicRoom);
+        panicRoom.addExit("back", experiment);
+
+        yard.addExit("back", hallway);
+        yard.addExit("left", tower);
+        yard.addExit("forward", shore);
+        tower.addExit("back", yard);
+        tower.addExit("forward", wall);
+        wall.addExit("back", tower);
+        wall.addExit("forward", shore);
+        shore.addExit("back", yard);
+        shore.addExit("forward", dockyard);
+        dockyard.addExit("back", shore);
+
+        // --- LOCKS ---
+        frontDoor.setLocked("Smooth Key");
+        office.setLocked("Gold Key");
+        securityDoor.setLocked("Red Keycard");
+        blockA.setLocked("Rusty Key");
+
+        // --- PLAYER & PRESENCE ---
+        Scanner scanner = new Scanner(System.in);
+        Player player = new Player(cell);
+        Presence presence = new Presence(shore);
+
+        System.out.println("""
+            You awaken. Your head throbs. Your cell is damp and silent. You remember nothing.
+            Only the number on the cell: 42.
+            Something tells you the path to discovery lies beyond.
+        """);
+
+        boolean gameRunning = true;
+
+        // --- MAIN GAME LOOP ---
+        while (gameRunning && player.isAlive()) {
+            System.out.println("\nHealth: " + player.getHealth() +
+                    " | Presence Awareness: " + presence.getAwarenessLevel() +
+                    " | Location: " + player.getLocation());
+            System.out.println("Exits: " + player.getLocation().getAvailableExits());
+            System.out.println("Command:");
+
+            String input = scanner.nextLine().toLowerCase();
+            CommandType command = CommandParser.parse(input);
+
+            switch (command) {
+                case MOVE -> {
+                    System.out.println("Where do you want to go?");
+                    String dir = scanner.nextLine().toLowerCase();
+                    Location next = player.getLocation().getExit(dir);
+                    if (next == null) {
+                        System.out.println("You can't go that way.");
+                        break;
+                    }
+                    if (!next.tryUnlock(player)) break;
+                    player.move(next);
+                    System.out.println(next.getDescription());
+                    next.explore();
+                }
+                case HIDE -> {
+                    player.hide();
+                    presence.decreaseAwareness(10);
+                }
+                case TAKE -> {
+                    System.out.println("Which item?");
+                    String itemName = scanner.nextLine();
+                    Item item = player.getLocation().removeItem(itemName);
+                    if (item != null) player.addItem(item);
+                    else System.out.println("No such item here.");
+                }
+                case USE -> {
+                    System.out.println("Use what?");
+                    String itemName = scanner.nextLine();
+                    Item item = player.getItem(itemName);
+                    if (item == null) {
+                        System.out.println("You don't have that item.");
+                        break;
+                    }
+                    if (item.getName().equalsIgnoreCase("Green Herb")) {
+                        player.heal(50);
+                        player.removeItem("Green Herb");
+                    } else {
+                        System.out.println("You use the " + item.getName());
+                    }
+                }
+                case INVENTORY -> player.showInventory();
+                case QUIT -> {
+                    System.out.println("You surrender to the darkness...");
+                    gameRunning = false;
+                }
+                default -> System.out.println("Time passes...");
+            }
+
+            // --- PRESENCE ---
+            presence.update(player);
+
+            // --- ENCOUNTER ---
+            if (presence.isChasing() && presence.getCurrentLocation() == player.getLocation()) {
+                if (player.hasItem("Knife")) {
+                    System.out.println("The Presence lunges! You stab with your knife and escape!");
+                    player.removeItem("Knife");
+                    presence.decreaseAwareness(60);
+                } else {
+                    System.out.println("The Presence strikes! You have nowhere to run...");
+                    gameRunning = false;
+                }
+            }
+
+            // --- ATMOSPHERE ---
+            presence.printSuspense();
+        }
+
+        if (!player.isAlive()) System.out.println("You succumbed to the Presence. Your story ends here.");
+        else System.out.println("You escaped... but the truth about yourself lingers in your mind.");
+
+        scanner.close();
+    }
 }
