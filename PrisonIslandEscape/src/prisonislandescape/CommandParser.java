@@ -4,7 +4,7 @@ public class CommandParser {
 	
 	public static CommandType parse(String input) {
 		
-		if (input.startsWith("leave") || input.startsWith("move")) {
+		if (input.startsWith("leave") || input.startsWith("leave") || input.startsWith("move")) {
 			return CommandType.MOVE;
 		}
 		
@@ -16,12 +16,20 @@ public class CommandParser {
 			return CommandType.EXPLORE;
 		}
 		
-		if (input.startsWith("take") || input.startsWith("grab")) {
+		if (input.startsWith("take") || input.startsWith("pick") || input.startsWith("grab")) {
 			return CommandType.TAKE;
+		}
+		
+		if (input.startsWith("drop")) {
+			return CommandType.DROP;
 		}
 		
 		if (input.startsWith("inventory") || input.startsWith("bag")) {
 			return CommandType.INVENTORY;
+		}
+		
+		if (input.startsWith("look") || input.startsWith("observe")) {
+			return CommandType.LOOK;
 		}
 		
 		if (input.startsWith("use")) {

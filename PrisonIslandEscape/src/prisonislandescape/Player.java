@@ -48,10 +48,23 @@ public class Player {
     public void addItem(Item item) {
         if (inventory.size() >= maxInventory) {
             System.out.println("Your pockets are full. Drop something first!");
+            System.out.println("Drop something beofre picking this up.");
             return;
         }
         inventory.add(item);
         System.out.println("Picked up: " + item.getName());
+    }
+    
+    public Item dropItem(String itemName) {
+    	
+    	for (Item item : inventory) {
+    		if (item.getName().equalsIgnoreCase(itemName)) {
+    			inventory.remove(item);
+    			System.out.println("You dropped: " + item.getName());
+    			return item;
+    		}
+    	}
+    	return null;
     }
 
     public void removeItem(String itemName) {

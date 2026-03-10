@@ -6,8 +6,10 @@ public enum CommandType {
 	HIDE,
 	EXPLORE,
 	TAKE,
+	DROP,
 	INVENTORY,
 	USE,
+	LOOK,
 	QUIT,
 	UNKNOWN
 	//Current Command Types so far
