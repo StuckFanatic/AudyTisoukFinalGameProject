@@ -221,13 +221,13 @@ public class IslandEscape {
 		
 		blockA.addExit("back", cell);
 		blockA.addExit("forward", recreational);
-		blockA.setLocked("Rusty Key");
 		blockA.addItem(rustyKey);
 		
 		recreational.addExit("back", blockA);
 		recreational.addExit("forward", cafeteria);
 		recreational.addExit("right", visiting);
 		recreational.addExit("left", hallway);
+		recreational.setLocked("Rusty Key");
 		
 		cafeteria.addExit("back", recreational);
 		
