@@ -483,6 +483,10 @@ public class IslandEscape {
 		        	player.showInventory();
 		        	break;
 		        	
+		        case LOOK:
+		            System.out.println(player.getLocation().getDescription());
+		            break;
+		        	
 		        case USE: {
 		        	
 		        	System.out.println("What do you want to use?");
