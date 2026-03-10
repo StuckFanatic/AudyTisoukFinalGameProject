@@ -86,49 +86,100 @@ public class Presence {
         currentLocation = newLocation;
     }
     
+    public void panicAtmosphere() {
+    	if (!chasing) return;
+    	
+    	String[] messages = {
+    			"Something moves in the dark behind you.",
+    			"Your heartbeat pounds in your chest.",
+    			"You hear something scraping against the walls.",
+    			"The Presence is close."
+    			
+    	};
+    	
+    	Random rand = new Random();
+    	System.out.println(messages[rand.nextInt(messages.length)]);
+    	
+    }
+    
     public void roam(Location playerLocation) {
 
-    	    if (currentLocation == null) return;
+        if (currentLocation == null) return;
 
-    	    // ----- CHASE MODE -----
-    	    if (chasing) {
+        Random random = new Random();
 
-    	        for (Location loc : currentLocation.getExits().values()) {
-    	            if (loc == playerLocation) {
-    	                System.out.println("(DEBUG) Presence lunges toward you!");
-    	                currentLocation = loc;
-    	                return;
-    	            }
-    	        }
+        List<Location> possibleMoves =
+                new ArrayList<>(currentLocation.getExits().values());
 
-    	        return;
-    	    }
+        // ----- CHASE MODE -----
+        if (chasing) {
 
-    	    // ----- HUNTING MODE (50–99) -----
-    	    if (awarenessLevel >= 50) {
+            if (!possibleMoves.isEmpty()) {
 
-    	        for (Location loc : currentLocation.getExits().values()) {
-    	            if (loc == playerLocation) {
-    	                System.out.println("(DEBUG) Presence moves with purpose...");
-    	                currentLocation = loc;
-    	                return;
-    	            }
-    	        }
-    	    }
+                Location next = null;
 
-    	    // ----- WANDERING MODE -----
-    	    List<Location> possibleMoves =
-    	            new ArrayList<>(currentLocation.getExits().values());
+                if (random.nextInt(100) < 70) {
 
-    	    if (possibleMoves.isEmpty()) return;
+                    for (Location loc : possibleMoves) {
 
-    	    Random random = new Random();
-    	    Location next = possibleMoves.get(random.nextInt(possibleMoves.size()));
+                        if (loc == playerLocation) {
 
-    	    System.out.println("(DEBUG) Presence moving from "
-    	            + currentLocation + " to " + next);
+                            System.out.println("(DEBUG) Presence lunges toward you!");
+                            currentLocation = loc;
+                            next = loc;
+                            break;
+                        }
+                    }
+                }
 
-    	    currentLocation = next;
+                if (next == null) {
+
+                    next = possibleMoves.get(random.nextInt(possibleMoves.size()));
+
+                    System.out.println("(DEBUG) Presence searching nearby rooms...");
+                    currentLocation = next;
+                }
+            }
+
+            // Escape logic
+            if (currentLocation != playerLocation) {
+
+                decreaseAwareness(20);
+
+                if (awarenessLevel <= 70) {
+
+                    chasing = false;
+                    System.out.println("The footsteps fade behind you...");
+                }
+            }
+
+            return;
+        }
+
+        // ----- HUNTING MODE -----
+        if (awarenessLevel >= 50) {
+
+            for (Location loc : possibleMoves) {
+
+                if (loc == playerLocation) {
+
+                    System.out.println("(DEBUG) Presence moves with purpose...");
+                    currentLocation = loc;
+                    return;
+                }
+            }
+        }
+
+        // ----- WANDERING MODE -----
+
+        if (possibleMoves.isEmpty()) return;
+
+        Location next = possibleMoves.get(random.nextInt(possibleMoves.size()));
+
+        System.out.println("(DEBUG) Presence wandering from "
+                + currentLocation + " to " + next);
+
+        currentLocation = next;
     }
 	
     

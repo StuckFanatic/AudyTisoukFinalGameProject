@@ -330,40 +330,49 @@ public class IslandEscape {
 
 		    switch (command) {
 
-		        case MOVE: {
-		        	
-		        	if (presence.isChasing()) {
-		        		
-		        		System.out.println("\nRUN!");
-		        		System.out.println("Your mind is racing. Your eyes tunnel.You can't rememember the halls.");
-		        		System.out.println("Where do you go?");
-		        	} else {
+		    case MOVE: {
+
+		        if (presence.isChasing()) {
+
+		            System.out.println("\nRUN!");
+		            System.out.println("Your mind is racing. Your eyes tunnel. You can't remember the halls.");
+		            System.out.println("Where do you go?");
+
+		        } else {
 
 		            System.out.println("Where do you want to move? Available: "
 		                    + player.getLocation().getAvailableExits());
-		        	}
+		        }
 
-		            String direction = scanner.nextLine().toLowerCase();
+		        String direction = scanner.nextLine().toLowerCase();
 
-		            Location nextLocation = player.getLocation().getExit(direction);
+		        Location nextLocation = player.getLocation().getExit(direction);
 
-		            if (nextLocation != null) {
+		        if (nextLocation == null) {
 
-		                player.move(nextLocation);
-		                System.out.println(nextLocation.getDescription());
-
-		                if (nextLocation.isSafeZone()) {
-		                    presence.decreaseAwareness(5);
-		                } else {
-		                    presence.increaseAwareness(5);
-		                }
-
-		            } else {
-		                System.out.println("You can't go that way.");
-		            }
-
+		            System.out.println("You can't go that way.");
 		            break;
 		        }
+
+		        // ----- LOCK CHECK -----
+
+		        if (!nextLocation.tryUnlock(player)) {
+		            break;
+		        }
+
+		        // ----- MOVE PLAYER -----
+
+		        player.move(nextLocation);
+		        System.out.println(nextLocation.getDescription());
+
+		        if (nextLocation.isSafeZone()) {
+		            presence.decreaseAwareness(5);
+		        } else {
+		            presence.increaseAwareness(5);
+		        }
+
+		        break;
+		    }
 
 		        case HIDE:
 		            player.hide();
@@ -433,6 +442,9 @@ public class IslandEscape {
 
 		    // Presence moves after player action
 		    presence.roam(player.getLocation());
+		    
+		    presence.panicAtmosphere();
+		    
 		    
 		    //Collision check for Presence
 		    if (!presence.isChasing() &&
