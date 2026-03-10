@@ -188,7 +188,7 @@ public class IslandEscape {
         Item finalLedger = new Item("Final Ledger", "The truth about Subject 428. You were never undercover. Only a survivor.");
 
         // --- PLACE ITEMS ---
-        blockA.addItem(rustyKey);
+        cell.addItem(rustyKey);
         safeRoom.addItem(smoothKey);
         office.addItem(redCard);
         tower.addItem(goldKey);
@@ -197,6 +197,7 @@ public class IslandEscape {
         panicRoom.addItem(finalLedger);
         armory.addItem(knife);
         medical.addItem(herb);
+        blockA.addItem(flashlight);
 
         // --- EXITS ---
         cell.addExit("forward", blockA);
@@ -210,10 +211,13 @@ public class IslandEscape {
         recreational.addExit("right", visiting);
 
         cafeteria.addExit("back", recreational);
+        
         visiting.addExit("back", recreational);
         visiting.addExit("left", frontDoor);
         visiting.addExit("right", safeRoom);
+        
         safeRoom.addExit("back", visiting);
+        
         frontDoor.addExit("back", visiting);
         frontDoor.addExit("left", shore);
 
@@ -228,6 +232,7 @@ public class IslandEscape {
 
         office.addExit("back", barracks);
         office.addExit("forward", officeStairwell);
+        
         officeStairwell.addExit("back", office);
         officeStairwell.addExit("forward", labStairwell);
 
@@ -236,21 +241,28 @@ public class IslandEscape {
 
         laboratory.addExit("back", labStairwell);
         laboratory.addExit("forward", contamination);
+        
         contamination.addExit("back", laboratory);
         contamination.addExit("forward", experiment);
+        
         experiment.addExit("back", contamination);
         experiment.addExit("forward", panicRoom);
+        
         panicRoom.addExit("back", experiment);
 
         yard.addExit("back", hallway);
         yard.addExit("left", tower);
         yard.addExit("forward", shore);
+        
         tower.addExit("back", yard);
         tower.addExit("forward", wall);
+        
         wall.addExit("back", tower);
         wall.addExit("forward", shore);
+        
         shore.addExit("back", yard);
         shore.addExit("forward", dockyard);
+        
         dockyard.addExit("back", shore);
 
         // --- LOCKS ---
@@ -272,7 +284,7 @@ public class IslandEscape {
 
         boolean gameRunning = true;
 
-        // --- MAIN GAME LOOP ---
+        // --- GAME ---
         while (gameRunning && player.isAlive()) {
             System.out.println("\nHealth: " + player.getHealth() +
                     " | Presence Awareness: " + presence.getAwarenessLevel() +
@@ -287,27 +299,65 @@ public class IslandEscape {
                 case MOVE -> {
                     System.out.println("Where do you want to go?");
                     String dir = scanner.nextLine().toLowerCase();
+                    
                     Location next = player.getLocation().getExit(dir);
+                    
                     if (next == null) {
                         System.out.println("You can't go that way.");
                         break;
+                        
                     }
-                    if (!next.tryUnlock(player)) break;
+                    
+                    if (!next.tryUnlock(player)) 
+                    	break;
+                    
                     player.move(next);
+                    
                     System.out.println(next.getDescription());
-                    next.explore();
+                    
+                    break;
+                    
                 }
+                
+                case EXPLORE -> {
+                	player.getLocation().explore();
+                	
+                	break;
+                }
+                
                 case HIDE -> {
                     player.hide();
                     presence.decreaseAwareness(10);
+                    break;
                 }
+                
                 case TAKE -> {
                     System.out.println("Which item?");
                     String itemName = scanner.nextLine();
+                    
                     Item item = player.getLocation().removeItem(itemName);
-                    if (item != null) player.addItem(item);
+                    
+                    if (item != null) 
+                    	player.addItem(item);
+                    
                     else System.out.println("No such item here.");
                 }
+                
+                case DROP -> {
+                	
+                	System.out.println("What do you want to drop?");
+                	String dropName = scanner.nextLine();
+                	
+                	Item dropped = player.dropItem(dropName);
+                	
+                	if (dropped != null) {
+                		player.getLocation().addItem(dropped);
+                	}
+                	else {
+                		System.out.println("You don't have that item.");
+                	}
+                }
+                
                 case USE -> {
                     System.out.println("Use what?");
                     String itemName = scanner.nextLine();
@@ -316,18 +366,30 @@ public class IslandEscape {
                         System.out.println("You don't have that item.");
                         break;
                     }
+                    
                     if (item.getName().equalsIgnoreCase("Green Herb")) {
                         player.heal(50);
                         player.removeItem("Green Herb");
                     } else {
                         System.out.println("You use the " + item.getName());
+                        break;
                     }
+                    
                 }
+                
                 case INVENTORY -> player.showInventory();
+                	
+                
+                case LOOK -> {
+                	System.out.println(player.getLocation().getDescription());
+                }
+                
                 case QUIT -> {
                     System.out.println("You surrender to the darkness...");
                     gameRunning = false;
+                    break;
                 }
+                
                 default -> System.out.println("Time passes...");
             }
 

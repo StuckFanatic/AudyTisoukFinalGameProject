@@ -39,7 +39,7 @@ public class Presence {
         justStartedChase = false;
     }
 
-    // Increase awareness and trigger chase if maxed
+    // Increase awareness and trigger chase if max
     public void increaseAwareness(int amount) {
         awarenessLevel += amount;
         if (awarenessLevel >= 100) {
@@ -57,7 +57,13 @@ public class Presence {
     // --- Presence behavior ---
     public void update(Player player) {
         // If chasing, move towards player with weighted chance
-        List<Location> exits = new ArrayList<>(currentLocation.getExits().values());
+        
+    	List<Location> exits = new ArrayList<>(currentLocation.getExits().values());
+
+        // FIX: prevent crash if there are no exits
+        if (exits.isEmpty()) {
+            return;
+        }
 
         if (chasing) {
             // 70% chance to move directly towards the player if adjacent
