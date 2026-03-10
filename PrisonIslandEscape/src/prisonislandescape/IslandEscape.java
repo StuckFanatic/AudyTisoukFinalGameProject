@@ -68,7 +68,7 @@ public class IslandEscape {
 				"Guard Tower",
 				"A tall rusted tower overlooking the prison yard.",
 				false,
-				"Yu climb the tower and search the lookout station. The prison grounds streched beneath you."
+				"You climb the tower and search the lookout station. The prison grounds streched beneath you."
 				);
 		
 		Location wall = new Location(
@@ -171,7 +171,8 @@ public class IslandEscape {
 		
 		Location dockyard = new Location(
 			    "Receiving Port",
-			    "An old supply dock where ships once delivered cargo.",
+			    "An old supply dock where ships once delivered cargo. There is a old boat that needs to be repaired here. Prehaps there are parts"
+			    + " that can be found around the prison.",
 			    false,
 			    "You search the empty docks. Broken crates and rusted chains lie scattered."
 			);
@@ -189,10 +190,6 @@ public class IslandEscape {
 				"A medicinal plant that will restore some health."
 				);
 		
-		Item flashlight = new Item(
-				"Flashlight",
-				"A small flashlight. It may help you navigate dark areas."
-				);
 		
 		Item rustyKey = new Item(
 				"Rusty Key",
@@ -214,14 +211,38 @@ public class IslandEscape {
 				"A smooth metal civilian door key"
 				);
 		
+		//Boat parts
+		Item hull = new Item(
+			    "Boat Hull",
+			    "The broken frame of a small escape boat."
+			);
+
+		Item motor = new Item(
+			    "Boat Motor",
+			    "An old but usable outboard motor."
+			);
+
+		Item fuel = new Item(
+			    "Fuel Canister",
+			    "A heavy container filled with fuel."
+			);
+
+		Item map = new Item(
+			    "Navigation Map",
+			    "A faded map showing safe water routes."
+			);
+		
 				
 				
 		//Define exits(for now add this to define movement. Details later
 		cell.addExit("forward", blockA);
+		cell.addItem(knife);
+		cell.addItem(herb);
 		
 		blockA.addExit("back", cell);
 		blockA.addExit("forward", recreational);
 		blockA.addItem(rustyKey);
+		
 		
 		recreational.addExit("back", blockA);
 		recreational.addExit("forward", cafeteria);
@@ -230,10 +251,13 @@ public class IslandEscape {
 		recreational.setLocked("Rusty Key");
 		
 		cafeteria.addExit("back", recreational);
+		cafeteria.addItem(knife);
+		cafeteria.addItem(herb);
 		
 		visiting.addExit("back", recreational);
 		visiting.addExit("left", frontDoor);
 		visiting.addExit("right", safeRoom);
+		visiting.addItem(herb);
 		
 		safeRoom.addExit("back", visiting);
 		safeRoom.addItem(smoothKey);
@@ -247,11 +271,12 @@ public class IslandEscape {
 		hallway.addExit("right", medical);
 		hallway.addExit("forward", yard);
 		
-		barracks.addExit("back", recreational);
+		barracks.addExit("back", hallway);
 		barracks.addExit("forward", office);
 		barracks.addExit("left", armory);
 		
 		armory.addExit("back", barracks);
+		armory.addItem(knife);
 		
 		office.addExit("back", barracks);
 		office.addExit("forward", officeStairwell);
@@ -281,9 +306,13 @@ public class IslandEscape {
 		experiment.addExit("back", contamination);
 		experiment.addExit("forward", panicRoom);
 		
+		panicRoom.addExit("back", experiment);
+		panicRoom.addItem(knife);
+		
 		yard.addExit("back", hallway);
 		yard.addExit("left", tower);
 		yard.addExit("forward", shore);
+		yard.addItem(herb);
 		
 		tower.addExit("back", yard);
 		tower.addExit("forward", wall);
@@ -295,14 +324,23 @@ public class IslandEscape {
 		shore.addExit("back", yard);
 		shore.addExit("forward", dockyard);
 		shore.addExit("right", frontDoor);
+		shore.addItem(herb);
 		
 		dockyard.addExit("back", shore);
+		
+		//Location boat parts
+		armory.addItem(motor);
+		labortory.addItem(fuel);
+		tower.addItem(map);
+		safeRoom.addItem(hull);
 		
 		
 		//Moved this down below locations
 		Scanner scanner = new Scanner(System.in);
 		Player player = new Player(cell);
 		Presence presence = new Presence(shore);
+		int boatPartsDelivered = 0;
+		final int TOTAL_PARTS = 4;
 		
 		System.out.println("""
 			    You awaken. Not to a paradise, but to a dark damp hell. You choke on your own blood and
@@ -311,7 +349,7 @@ public class IslandEscape {
 			    """);
 		System.out.println("""
 				Though fate has tempted you with a curious opportunity. The cell holding you 
-				is slightly ajar. The path to discovery might be beyond.
+				is slightly ajar. You know you must escape. There must be a way to get off the island.
 			    """);
 		System.out.println("What do you do?");
 	
@@ -401,6 +439,46 @@ public class IslandEscape {
 		        	break;
 		        }
 		        
+		        case DROP: {
+
+		            System.out.println("What do you want to drop?");
+		            String itemName = scanner.nextLine();
+
+		            Item item = player.getItem(itemName);
+
+		            if (item == null) {
+		                System.out.println("You don't have that.");
+		                break;
+		            }
+
+		            // If player is at dock, assemble boat
+		            if (player.getLocation().getName().equals("Receiving Port")) {
+
+		                if (item.getName().equalsIgnoreCase("Boat Hull") ||
+		                    item.getName().equalsIgnoreCase("Boat Motor") ||
+		                    item.getName().equalsIgnoreCase("Fuel Canister") ||
+		                    item.getName().equalsIgnoreCase("Navigation Map")) {
+
+		                    player.removeItem(item.getName());   // FIX
+		                    boatPartsDelivered++;
+
+		                    System.out.println("You add the " + item.getName() + " to the escape boat.");
+		                    System.out.println("Boat Parts: " + boatPartsDelivered + "/" + TOTAL_PARTS);
+
+		                } else {
+
+		                    System.out.println("That won't help build the boat.");
+		                }
+
+		            } else {
+
+		                player.getLocation().addItem(item);
+		                System.out.println("You dropped the " + item.getName());
+		            }
+
+		            break;
+		        }
+		        
 		        case INVENTORY: 
 		        	player.showInventory();
 		        	break;
@@ -440,6 +518,22 @@ public class IslandEscape {
 		            break;
 		    }
 
+		 // Escape Victory Condition
+		    if (boatPartsDelivered >= TOTAL_PARTS) {
+
+		        System.out.println("\nYou finish assembling the makeshift boat.");
+
+		        System.out.println("The motor sputters to life...");
+
+		        System.out.println("Behind you, something screams from inside the prison.");
+
+		        System.out.println("You push away from the island into the dark sea.");
+
+		        System.out.println("\nYOU ESCAPED THE ISLAND.");
+
+		        gameRunning = false;
+		    }
+		    
 		    // Presence moves after player action
 		    presence.roam(player.getLocation());
 		    
@@ -470,7 +564,9 @@ public class IslandEscape {
 		    		
 		    		player.removeItem("Knife");
 		    		
-		    		presence.decreaseAwareness(60);
+		    		presence.decreaseAwareness(40);
+		    		
+		    		presence.stun(2);
 		    	} else {
 
 		    	    System.out.println("\nIt lunges from the darkness.");
@@ -484,7 +580,7 @@ public class IslandEscape {
 		    presence.resetChaseFlag();
 		    
 		    // Debug print
-		    System.out.println("(DEBUG) Presence is in: " + presence.getCurrentLocation());
+		    //System.out.println("(DEBUG) Presence is in: " + presence.getCurrentLocation());
 
 		    // Atmospheric tension messages
 		    presence.checkTension();

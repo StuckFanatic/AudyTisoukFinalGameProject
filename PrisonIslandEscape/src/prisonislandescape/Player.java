@@ -53,11 +53,17 @@ public class Player {
 	}	
 	
 	public void addItem(Item item) {
-		if (inventory.size() >= maxInventory) {
-			System.out.println("Your pockets are full. You must drop something.");
-		}
-		
-		inventory.add(item);
+		// Keys do NOT count toward inventory limit
+	    if (!item.getName().toLowerCase().contains("key")
+	        && !item.getName().toLowerCase().contains("keycard")) {
+
+	        if (inventory.size() >= maxInventory) {
+	            System.out.println("You cannot carry anything else.");
+	            return;
+	        }
+	    }
+
+	    inventory.add(item);
 	}
 	
 	public boolean hasItem(String itemName) {
@@ -92,14 +98,16 @@ public class Player {
 		return null;
 	}
 	
-	public void removeItem(String itemName) {
-		
-		for (Item item : inventory) {
-			if (item.getName().equalsIgnoreCase(itemName)) {
-				inventory.remove(item);
-				return;
-			}
-		}
+	public Item removeItem(String name) {
+
+	    for (Item item : inventory) {
+	        if (item.getName().equalsIgnoreCase(name)) {
+	            inventory.remove(item);
+	            return item;
+	        }
+	    }
+
+	    return null;
 	}
 	
 	public void heal(int amount) {
@@ -109,6 +117,8 @@ public class Player {
 		}
 		System.out.println("You feel like you've staved away death a little longer...");
 	}
+	
+	
 	
 	
 }

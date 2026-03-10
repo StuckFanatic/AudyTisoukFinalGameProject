@@ -12,6 +12,7 @@ public class Presence {
 	private Location currentLocation;
 	private boolean chasing;
 	private boolean justStartedChase;
+	private int stunnedTurns = 0;
 
     public Presence(Location startingLocation) {
         this.awarenessLevel = 0;
@@ -56,6 +57,12 @@ public class Presence {
     
     public void resetChaseFlag() {
     	justStartedChase = false;
+    }
+    
+    public void stun (int turns) {
+    	stunnedTurns = turns;
+    	chasing = false;
+    	System.out.println("The Presence recoils in pain!");
     }
     
     public void checkTension() {
@@ -104,8 +111,16 @@ public class Presence {
     
     public void roam(Location playerLocation) {
 
+    	
         if (currentLocation == null) return;
 
+        // STUN LOGIC FOR KNIFE
+        if (stunnedTurns > 0) {
+            stunnedTurns--;
+            //System.out.println("(DEBUG) Presence is stunned and cannot move.");
+            return;
+        }
+        
         Random random = new Random();
 
         List<Location> possibleMoves =
@@ -124,7 +139,7 @@ public class Presence {
 
                         if (loc == playerLocation) {
 
-                            System.out.println("(DEBUG) Presence lunges toward you!");
+                            //System.out.println("(DEBUG) Presence lunges toward you!");
                             currentLocation = loc;
                             next = loc;
                             break;
@@ -136,7 +151,7 @@ public class Presence {
 
                     next = possibleMoves.get(random.nextInt(possibleMoves.size()));
 
-                    System.out.println("(DEBUG) Presence searching nearby rooms...");
+                    //System.out.println("(DEBUG) Presence searching nearby rooms...");
                     currentLocation = next;
                 }
             }
@@ -163,7 +178,7 @@ public class Presence {
 
                 if (loc == playerLocation) {
 
-                    System.out.println("(DEBUG) Presence moves with purpose...");
+                    //System.out.println("(DEBUG) Presence moves with purpose...");
                     currentLocation = loc;
                     return;
                 }
@@ -176,8 +191,8 @@ public class Presence {
 
         Location next = possibleMoves.get(random.nextInt(possibleMoves.size()));
 
-        System.out.println("(DEBUG) Presence wandering from "
-                + currentLocation + " to " + next);
+        //System.out.println("(DEBUG) Presence wandering from "
+                //+ currentLocation + " to " + next);
 
         currentLocation = next;
     }
