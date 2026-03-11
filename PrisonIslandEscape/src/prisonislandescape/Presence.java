@@ -3,10 +3,13 @@ package prisonislandescape;
 //The Presence is something that will chase the player
 
 import java.util.ArrayList;
+import java.io.Serializable;
 import java.util.List;
 import java.util.Random;
 
-public class Presence {
+public class Presence implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
 
 	private int awarenessLevel;
 	private Location currentLocation;

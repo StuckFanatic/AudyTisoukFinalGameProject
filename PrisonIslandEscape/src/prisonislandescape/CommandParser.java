@@ -36,6 +36,10 @@ public class CommandParser {
 			return CommandType.USE;
 		}
 		
+		if (input.startsWith("save")) {
+			return CommandType.SAVE;
+		}
+		
 		if (input.startsWith("quit") || input.startsWith("give up")) {
 			return CommandType.QUIT;
 		}

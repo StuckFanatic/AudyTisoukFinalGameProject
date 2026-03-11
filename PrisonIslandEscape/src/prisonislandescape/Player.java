@@ -1,10 +1,12 @@
 package prisonislandescape;
 
 import java.util.ArrayList;
+import java.io.Serializable;
 import java.util.List;
 
-public class Player {
+public class Player implements Serializable {
 	
+	private static final long serialVersionUID = 1L;
 	
 	private int health;			//Players health
 	private Location location;		//Player location

@@ -1,8 +1,15 @@
 package prisonislandescape;
 
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 
-public class IslandEscape {
+public class IslandEscape implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
+	static Player player;
 
 	public static void main(String[] args) {
 		
@@ -337,7 +344,7 @@ public class IslandEscape {
 		
 		//Moved this down below locations
 		Scanner scanner = new Scanner(System.in);
-		Player player = new Player(cell);
+		player = new Player(cell);
 		Presence presence = new Presence(shore);
 		int boatPartsDelivered = 0;
 		final int TOTAL_PARTS = 4;
@@ -511,6 +518,10 @@ public class IslandEscape {
 		        	
 		        	break;
 		        }
+		        
+		        case SAVE:
+		            saveGame(scanner);
+		            break;
 
 		        case QUIT:
 		            System.out.println("You stop struggling for survival. It was futile anyway.");
@@ -592,6 +603,35 @@ public class IslandEscape {
 		}
 		
 		scanner.close();
+	}
+	
+	//save game for project 7 
+	//and final
+	public static void saveGame(Scanner scanner) {
+		
+		try {
+			
+			System.out.println("Enter the full path in the console for the save file");
+			String path = scanner.nextLine();
+			
+			File saveFile = new File(path);
+			
+			ObjectOutputStream out =
+					new ObjectOutputStream(new FileOutputStream(saveFile));
+			
+			out.writeObject(player);
+			out.close();
+			
+			System.out.println("Game saved successfully!");
+			
+			System.out.println("File size: " + saveFile.length() + " bytes");
+			
+		} catch (Exception e) {
+			System.out.println("Save failed.");
+			e.printStackTrace();
+		}
+		
+		
 	}
 	
 }

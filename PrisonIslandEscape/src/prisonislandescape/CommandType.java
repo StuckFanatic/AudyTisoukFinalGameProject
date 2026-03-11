@@ -10,6 +10,7 @@ public enum CommandType {
 	INVENTORY,
 	USE,
 	LOOK,
+	SAVE,
 	QUIT,
 	UNKNOWN
 	//Current Command Types so far

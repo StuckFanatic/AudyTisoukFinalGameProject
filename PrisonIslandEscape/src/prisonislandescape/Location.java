@@ -4,9 +4,11 @@ import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.io.Serializable;
 
-
-public class Location {
+public class Location implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
 
 	private String name;
 	private String description;
